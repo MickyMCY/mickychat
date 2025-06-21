@@ -33,16 +33,36 @@
       </section>
 
       <section id="conexao" class="secao">
-        <h2>🔌 Conexão com WhatsApp</h2>
+        <h2>🔌 Conexão</h2>
         <p>Conecte e verifique sua conexão com o WhatsApp.</p>
+
         <div class="box-conexao">
           <div class="status">
             <strong>Status:</strong>
-            <span class="desconectado">Desconectado</span>
+            <span id="status-indicador" class="desconectado">Desconectado</span>
           </div>
-          <button class="botao-primario">📱 Conecte um número</button>
+
+          <button class="botao-primario" onclick="mostrarNumero()">📱 Conecte um número</button>
           <button class="botao-destaque" onclick="gerarQRCode()">Conectar</button>
+
           <div id="mensagem-qrcode" class="mensagem-qrcode"></div>
+
+          <div id="conectar-por-numero" class="box-numero" style="display:none;">
+            <label>📞 Escolha seu país:</label>
+            <select id="pais-select" onchange="atualizarCodigo()">
+              <option value="+258">🇲🇿 Moçambique (+258)</option>
+              <option value="+55">🇧🇷 Brasil (+55)</option>
+              <option value="+351">🇵🇹 Portugal (+351)</option>
+              <option value="+244">🇦🇴 Angola (+244)</option>
+            </select>
+
+            <div class="numero-input">
+              <span id="codigo-pais">+258</span>
+              <input type="text" placeholder="Digite seu número" id="numero-wpp">
+            </div>
+
+            <button class="botao-destaque" onclick="conectarPorNumero()">Conectar via Número</button>
+          </div>
         </div>
       </section>
 
