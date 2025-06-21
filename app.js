@@ -1,4 +1,4 @@
-// Controle de navegação das seções
+// Navegação do menu lateral
 document.querySelectorAll('.sidebar nav ul li').forEach(item => {
   item.addEventListener('click', () => {
     document.querySelectorAll('.sidebar nav ul li').forEach(i => i.classList.remove('ativo'));
@@ -17,56 +17,79 @@ const painelQR = document.getElementById('painelQR');
 const painelNumero = document.getElementById('painelNumero');
 const btnAbrirQr = document.getElementById('btnAbrirQr');
 const btnAbrirNumero = document.getElementById('btnAbrirNumero');
+const btnDesconectar = document.getElementById('btnDesconectar');
 const mensagemProcesso = document.getElementById('mensagemProcesso');
 const qrcodeContainer = document.getElementById('qrcodeContainer');
 const mensagemNumero = document.getElementById('mensagemNumero');
 
-let conectado = false; // Estado simulado
+let conectado = false;
 
-// Mostrar painel QR Code e ocultar número
+function atualizarInterface() {
+  if (conectado) {
+    statusConexao.textContent = 'Conectado';
+    statusConexao.classList.remove('desconectado');
+    statusConexao.classList.add('conectado');
+
+    btnAbrirQr.style.display = 'none';
+    btnAbrirNumero.style.display = 'none';
+    btnDesconectar.classList.remove('oculto');
+
+    painelQR.classList.add('oculto');
+    painelNumero.classList.add('oculto');
+    mensagemProcesso.textContent = '';
+    mensagemNumero.textContent = '';
+    qrcodeContainer.innerHTML = '';
+  } else {
+    statusConexao.textContent = 'Desconectado';
+    statusConexao.classList.remove('conectado');
+    statusConexao.classList.add('desconectado');
+
+    btnAbrirQr.style.display = 'inline-block';
+    btnAbrirNumero.style.display = 'inline-block';
+    btnDesconectar.classList.add('oculto');
+
+    painelQR.classList.add('oculto');
+    painelNumero.classList.add('oculto');
+    mensagemProcesso.textContent = '';
+    mensagemNumero.textContent = '';
+    qrcodeContainer.innerHTML = '';
+  }
+}
+
 function mostrarPainelQR() {
   painelQR.classList.remove('oculto');
   painelNumero.classList.add('oculto');
-  mensagemProcesso.textContent = 'Preparando conexão, aguarde...';
-  qrcodeContainer.innerHTML = ''; // limpa QR anterior
-  mensagemNumero.textContent = '';
-  gerarQRCodeSimulado();
+  mensagemProcesso.textContent = 'Preparando a geração do QR Code...';
+  qrcodeContainer.innerHTML = '';
+
+  // Simulação do QR Code
+  setTimeout(() => {
+    qrcodeContainer.innerHTML = '<div style="width:240px;height:240px;background: linear-gradient(45deg, #00c2ff, #006699); border-radius:16px; display:flex; align-items:center; justify-content:center; color:#003344; font-weight:700; font-size:1.1rem;">QR Code Aqui</div>';
+    mensagemProcesso.textContent = 'QR Code gerado! Escaneie com o WhatsApp.';
+  }, 1500);
+
+  // Simula conexão após 12s
+  setTimeout(() => {
+    conectado = true;
+    atualizarInterface();
+    mensagemProcesso.textContent = 'Conectado com sucesso.';
+  }, 12000);
 }
 
-// Mostrar painel número e ocultar QR Code
 function mostrarPainelNumero() {
   painelNumero.classList.remove('oculto');
   painelQR.classList.add('oculto');
   mensagemNumero.textContent = '';
-  qrcodeContainer.innerHTML = '';
   mensagemProcesso.textContent = '';
+  qrcodeContainer.innerHTML = '';
 }
 
-// Simula geração do QR Code e conexão
-function gerarQRCodeSimulado() {
-  // Simulação: após 1.5 segundos "QR code" aparece
-  setTimeout(() => {
-    qrcodeContainer.innerHTML = '<div style="width: 240px; height: 240px; background: linear-gradient(45deg, #00c2ff, #006699); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #003344; font-weight: 700; font-size: 1.1rem;">QR Code Aqui</div>';
-    mensagemProcesso.textContent = 'QR Code gerado. Escaneie com seu WhatsApp.';
-  }, 1500);
-
-  // Simula conexão após 12 segundos
-  setTimeout(() => {
-    conectado = true;
-    statusConexao.classList.remove('desconectado');
-    statusConexao.classList.add('conectado');
-    statusConexao.textContent = 'Conectado';
-    mensagemProcesso.textContent = 'Conexão estabelecida com sucesso.';
-  }, 12000);
-}
-
-// Conectar via número
 function conectarViaNumero() {
   const pais = document.getElementById('paisSelect').value;
   const numero = document.getElementById('numeroInput').value.trim();
 
   if (!numero.match(/^\d{7,15}$/)) {
-    mensagemNumero.textContent = 'Número inválido. Digite somente dígitos entre 7 e 15 caracteres.';
+    mensagemNumero.textContent = 'Número inválido. Digite apenas dígitos entre 7 e 15 caracteres.';
     mensagemNumero.style.color = '#e55353';
     return;
   }
@@ -77,41 +100,30 @@ function conectarViaNumero() {
   // Simula conexão após 5 segundos
   setTimeout(() => {
     conectado = true;
-    statusConexao.classList.remove('desconectado');
-    statusConexao.classList.add('conectado');
-    statusConexao.textContent = 'Conectado';
-    mensagemNumero.textContent = `Conexão realizada com número ${pais} ${numero}.`;
-    painelNumero.classList.add('oculto');
+    atualizarInterface();
+    mensagemNumero.textContent = `Conectado via número ${pais} ${numero}.`;
   }, 5000);
 }
 
-// Para suporte simples - exemplo
-function respostaSuporte(tipo) {
-  const container = document.getElementById('resposta-suporte');
-  let resposta = '';
-  switch(tipo) {
-    case 'pagamento':
-      resposta = 'Para efectuar o pagamento, siga as instruções no seu painel de pagamento.';
-      break;
-    case 'teste':
-      resposta = 'Você pode testar o sistema gratuitamente por 7 dias.';
-      break;
-    case 'erro':
-      resposta = 'Se o pagamento foi realizado e o acesso não foi liberado, entre em contato conosco via WhatsApp.';
-      break;
-    case 'humano':
-      resposta = 'Estamos aqui para ajudar! Um atendente humano entrará em contato em breve.';
-      break;
-    case 'sugestao':
-      resposta = 'Obrigado pela sua sugestão! Iremos analisar e melhorar o sistema.';
-      break;
-    default:
-      resposta = 'Selecione uma opção para receber ajuda.';
-  }
-  container.textContent = resposta;
+function desconectar() {
+  conectado = false;
+  atualizarInterface();
 }
 
-// Função placeholder extensão
-function baixarExtensao() {
-  alert('Função para baixar extensão ainda não implementada.');
+// Inicializa interface
+window.onload = () => {
+  atualizarInterface();
+};
+
+// Função de suporte (exemplo simples)
+function respostaSuporte(tipo) {
+  const respostas = {
+    pagamento: 'Para efetuar o pagamento, utilize o método X ou Y conforme instruções enviadas.',
+    teste: 'O teste grátis funciona por 7 dias e inclui recursos limitados.',
+    erro: 'Se o pagamento não desbloqueou, envie o comprovante para nosso suporte via WhatsApp.',
+    humano: 'Um atendente humano entrará em contato em breve.',
+    sugestao: 'Obrigado pela sugestão! Estamos sempre melhorando nosso serviço.'
+  };
+  const areaResposta = document.getElementById('resposta-suporte');
+  areaResposta.textContent = respostas[tipo] || 'Opção não reconhecida.';
 }
