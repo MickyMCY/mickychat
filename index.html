@@ -32,26 +32,23 @@
         <p>Resumo do sistema e estatísticas futuras aparecerão aqui.</p>
       </section>
 
-      <!-- SEÇÃO CONEXÃO COM BOX GRANDE -->
+      <!-- SEÇÃO CONEXÃO COM BOX FORMULÁRIO -->
       <section id="conexao" class="secao">
         <h2 class="titulo-principal">Conexão</h2>
         <p class="subtitulo">
           Conecte seu WhatsApp e verifique seu status para começar a usar.
         </p>
 
-        <div class="conexao-box-grande">
+        <div class="conexao-box-form">
           <div class="linha-status">
             <span class="label-status">Status:</span>
             <span id="statusConexao" class="status-tag desconectado">Desconectado</span>
           </div>
 
-          <button id="btnAbrirQr" class="btn-acao" onclick="mostrarPainelQR()">
-            Conectar via QR Code
-          </button>
-
-          <button id="btnAbrirNumero" class="btn-acao" onclick="mostrarPainelNumero()">
-            Conectar via Número
-          </button>
+          <div class="acoes-conexao">
+            <button id="btnAbrirQr" class="btn-acao" onclick="mostrarPainelQR()">Conectar via QR Code</button>
+            <button id="btnAbrirNumero" class="btn-acao btn-secundario" onclick="mostrarPainelNumero()">Conectar via Número</button>
+          </div>
 
           <div id="painelQR" class="painel-qr oculto">
             <div id="mensagemProcesso" class="mensagem-processo">Preparando conexão, aguarde...</div>
@@ -87,7 +84,6 @@
       </section>
 
       <section id="funis" class="secao">
-        <!-- conteúdo funis (omitido para foco na conexão) -->
         <h2>🧩 Funis</h2>
         <p>Aqui você gerencia seus funis.</p>
       </section>
