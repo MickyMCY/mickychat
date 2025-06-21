@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MickyChat - Painel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">🧠 TelepreservarChat</div>
+      <nav>
+        <ul>
+          <li class="ativo" data-section="metricas">📊 Métricas</li>
+          <li data-section="conexao">🔌 Conexão</li>
+          <li data-section="funis">🧩 Funis</li>
+          <li data-section="disparos">🚀 Disparos</li>
+        </ul>
+      </nav>
+      <div class="whatsapp-help">
+        <a href="https://wa.me/SEUNUMERO" target="_blank">💬 Precisa de ajuda?</a>
+      </div>
+    </aside>
+
+    <main class="conteudo">
+      <section id="metricas" class="secao ativa">
+        <h2>📊 Métricas</h2>
+        <p>Resumo das métricas aparecerá aqui futuramente.</p>
+      </section>
+
+      <section id="conexao" class="secao">
+        <h2>🔌 Conexão com WhatsApp</h2>
+        <div class="qrcode-placeholder">QR Code de conexão será exibido aqui.</div>
+      </section>
+
+      <section id="funis" class="secao">
+        <h2>🧩 Criador de Funis</h2>
+        <div class="funil-builder">
+          <aside class="funil-blocos">
+            <h3>Arraste:</h3>
+            <div draggable="true" class="bloco" data-tipo="mensagem">💬 Mensagem</div>
+            <div draggable="true" class="bloco" data-tipo="delay">⏱ Delay</div>
+          </aside>
+          <section class="funil-area" id="funil-area">
+            <p>Monte seu funil aqui.</p>
+          </section>
+        </div>
+        <div class="funil-controles">
+          <button id="exportar">Exportar</button>
+          <input type="file" id="importar" hidden />
+          <button onclick="document.getElementById('importar').click()">Importar</button>
+          <button id="executar">▶️ Executar</button>
+        </div>
+      </section>
+
+      <section id="disparos" class="secao">
+        <h2>🚀 Disparos</h2>
+        <p>Lista de disparos e controle aparecerão aqui.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
