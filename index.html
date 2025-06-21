@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="container">
+    <!-- MENU LATERAL: Sempre fixo à esquerda -->
     <aside class="sidebar">
       <div class="logo">💠 <strong>MickyChat</strong></div>
       <nav>
@@ -22,44 +23,63 @@
         </ul>
       </nav>
       <div class="whatsapp-help">
-        <a href="https://wa.me/SEUNUMERO" target="_blank">❓ Ajuda via WhatsApp</a>
+        <a href="https://wa.me/SEUNUMERO" target="_blank" rel="noopener">❓ Ajuda via WhatsApp</a>
       </div>
     </aside>
 
+    <!-- CONTEÚDO PRINCIPAL -->
     <main class="conteudo">
-      <!-- Métricas -->
+      <!-- Seção Métricas -->
       <section id="metricas" class="secao ativa">
         <h2>📊 Métricas</h2>
         <p>Resumo do sistema e estatísticas futuras aparecerão aqui.</p>
       </section>
 
-      <!-- Conexão -->
+      <!-- Seção Conexão -->
       <section id="conexao" class="secao">
-        <h2>🔌 Conexão</h2>
-        <p class="sub">Conecte e verifique sua conexão com o WhatsApp</p>
+        <h2 class="conexao-titulo">Conexão</h2>
+        <p class="conexao-subtitulo">Conecte e verifique sua conexão com o WhatsApp.</p>
         <div class="box-conexao">
-          <div class="status-conexao status-desconectado">Status: Desconectado</div>
-          <button class="btn-secundario">Conecte um número</button>
-          <button class="btn-principal" onclick="gerarQRCode()">Conectar</button>
-          <div class="mensagem-qrcode" id="mensagem-qrcode" style="display:none">
-            ⏳ Gerando QR-Code... isso pode levar até 1 minuto.
+          <div class="status-conexao">
+            <strong>Status:</strong>
+            <span id="status-indicador" class="desconectado">Desconectado</span>
           </div>
-          <div class="qrcode-area" id="qrcode-area" style="display:none">
-            <!-- QR aparecerá aqui -->
-            <img src="qrcode.png" alt="QR-Code">
+          <button class="botao-primario" onclick="mostrarNumero()">📱 Conecte um número</button>
+          <button class="botao-destaque" onclick="gerarQRCode()">Conectar via QR-Code</button>
+          <div id="mensagem-qrcode" class="mensagem-qrcode" style="display:none">
+            ⏳ Gerando QR-Code… pode levar até 1 minuto.
+          </div>
+          <div id="qrcode-area" class="qrcode-area" style="display:none">
+            <!-- Aqui aparecerá a imagem do QR-Code gerado -->
+            <img src="qrcode-placeholder.png" alt="QR Code" />
           </div>
           <div class="alternativa-numero">
             <a href="#" onclick="abrirConexaoNumero()">Ou conectar com número</a>
           </div>
+          <div id="conectar-por-numero" class="box-numero" style="display:none;">
+            <label for="pais-select">Escolha seu país:</label>
+            <select id="pais-select" onchange="atualizarCodigo()">
+              <option value="+258" selected>🇲🇿 Moçambique (+258)</option>
+              <option value="+55">🇧🇷 Brasil (+55)</option>
+              <option value="+351">🇵🇹 Portugal (+351)</option>
+              <option value="+244">🇦🇴 Angola (+244)</option>
+              <!-- Adicione mais países conforme necessário -->
+            </select>
+            <div class="numero-input">
+              <span id="codigo-pais">+258</span>
+              <input type="text" id="numero-wpp" placeholder="Digite seu número" />
+            </div>
+            <button class="botao-destaque" onclick="conectarPorNumero()">Conectar via Número</button>
+          </div>
         </div>
       </section>
 
-      <!-- Funis -->
+      <!-- Seção Funis -->
       <section id="funis" class="secao">
         <div class="funil-header">
           <h1 class="funis-titulo">📈 Funis de Venda</h1>
           <p class="funis-descricao">
-            Crie fluxos automatizados que iniciam assim que um cliente entra em contacto com você.
+            Crie fluxos automatizados que iniciam assim que um cliente entrar em contacto com você.
           </p>
           <div class="funil-controle-topo">
             <span>Exibindo <span id="contador-funis">0</span> funis criados</span>
@@ -67,17 +87,17 @@
           </div>
         </div>
         <div class="funil-grid" id="lista-funis">
-          <!-- Os funis serão inseridos aqui dinamicamente -->
+          <!-- Funis serão inseridos dinamicamente aqui -->
         </div>
       </section>
 
-      <!-- Disparos -->
+      <!-- Seção Disparos -->
       <section id="disparos" class="secao">
         <h2>🚀 Disparos</h2>
         <p>Controle de conversas ativas, envio e pausa manual aparecerão aqui.</p>
       </section>
 
-      <!-- Suporte -->
+      <!-- Seção Suporte -->
       <section id="suporte" class="secao">
         <h2>💬 Suporte Automático</h2>
         <p>Escolha abaixo uma dúvida ou problema:</p>
@@ -91,14 +111,14 @@
         <div id="resposta-suporte" class="suporte-resposta"></div>
       </section>
 
-      <!-- Extensão -->
+      <!-- Seção Extensão -->
       <section id="extensao" class="secao">
         <h2>🧷 Extensão Web - MChat Helper</h2>
         <p>Clique abaixo para baixar a extensão que facilita a automação no seu navegador.</p>
         <button onclick="baixarExtensao()">⬇️ Baixar Extensão (.zip)</button>
       </section>
 
-      <!-- Sair -->
+      <!-- Seção Sair -->
       <section id="sair" class="secao">
         <h2>🚪 Sair</h2>
         <p>Você saiu do sistema com sucesso.</p>
@@ -106,7 +126,6 @@
       </section>
     </main>
   </div>
-
   <script src="app.js"></script>
 </body>
 </html>
