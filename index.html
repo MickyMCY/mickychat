@@ -22,7 +22,7 @@
         </ul>
       </nav>
       <div class="whatsapp-help">
-        <a href="https://wa.me/SEUNUMERO" target="_blank">❓ Ajuda via WhatsApp</a>
+        <a href="https://wa.me/SEUNUMERO" target="_blank" rel="noopener">❓ Ajuda via WhatsApp</a>
       </div>
     </aside>
 
@@ -32,7 +32,6 @@
         <p>Resumo do sistema e estatísticas futuras aparecerão aqui.</p>
       </section>
 
-      <!-- SEÇÃO CONEXÃO COM BOX FORMULÁRIO -->
       <section id="conexao" class="secao">
         <h2 class="titulo-principal">Conexão</h2>
         <p class="subtitulo">
@@ -48,6 +47,7 @@
           <div class="acoes-conexao">
             <button id="btnAbrirQr" class="btn-acao" onclick="mostrarPainelQR()">Conectar via QR Code</button>
             <button id="btnAbrirNumero" class="btn-acao btn-secundario" onclick="mostrarPainelNumero()">Conectar via Número</button>
+            <button id="btnDesconectar" class="btn-acao btn-desconectar oculto" onclick="desconectar()">Desconectar</button>
           </div>
 
           <div id="painelQR" class="painel-qr oculto">
@@ -63,7 +63,6 @@
               <option value="+244">🇦🇴 Angola (+244)</option>
               <option value="+351">🇵🇹 Portugal (+351)</option>
               <option value="+33">🇫🇷 França (+33)</option>
-              <!-- mais países aqui -->
             </select>
 
             <label for="numeroInput" style="margin-top: 16px;">Digite o número (sem código):</label>
@@ -85,7 +84,7 @@
 
       <section id="funis" class="secao">
         <h2>🧩 Funis</h2>
-        <p>Aqui você gerencia seus funis.</p>
+        <p>Aqui você criará e gerenciará seus funis de conversação.</p>
       </section>
 
       <section id="disparos" class="secao">
