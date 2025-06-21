@@ -28,10 +28,11 @@ body {
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: #00C2FF;
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .sidebar ul {
@@ -41,7 +42,7 @@ body {
 }
 
 .sidebar li {
-  padding: 14px;
+  padding: 12px;
   border-radius: 10px;
   cursor: pointer;
   margin-bottom: 10px;
@@ -112,12 +113,6 @@ body {
   border-radius: 10px;
 }
 
-.funil-area p {
-  text-align: center;
-  color: #888;
-  font-style: italic;
-}
-
 .funil-item {
   background: #00C2FF;
   color: #0D1117;
@@ -141,6 +136,11 @@ button {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background: #195ec9;
 }
 
 .qrcode-placeholder {
@@ -150,4 +150,33 @@ button {
   border-radius: 10px;
   color: #888;
   font-style: italic;
+}
+
+/* Suporte */
+.suporte-perguntas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.suporte-perguntas button {
+  background: #252D3A;
+  border: 1px solid #1F6FEB;
+  text-align: left;
+}
+
+.suporte-resposta {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #0e1622;
+  border-left: 4px solid #00FF88;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Extensão */
+#extensao button {
+  margin-top: 15px;
 }
