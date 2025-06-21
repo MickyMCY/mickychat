@@ -1,96 +1,81 @@
-/* Reset básico */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #121212;
-  color: #eee;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f2f5f9;
+  color: #222;
+  font-weight: 600; /* Letras mais carregadas */
+  overflow-x: hidden;
 }
 
 .container {
   display: flex;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  flex-direction: row;
 }
 
-/* Sidebar lateral */
 .sidebar {
-  background-color: #222;
-  color: #eee;
   width: 250px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
+  background-color: #002233;
+  color: #fff;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   overflow-y: auto;
-  position: relative;
+  z-index: 10;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 900;
-  padding: 20px;
-  border-bottom: 1px solid #444;
-  position: sticky;
-  top: 0;
-  background-color: #222;
-  z-index: 10;
-  user-select: none;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .sidebar nav ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .sidebar nav ul li {
-  padding: 15px 25px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 1rem;
+  padding: 15px 12px;
+  margin-bottom: 10px;
   border-left: 5px solid transparent;
-  transition: background-color 0.3s, border-left-color 0.3s;
-  user-select: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .sidebar nav ul li.ativo,
 .sidebar nav ul li:hover {
-  background-color: #333;
-  border-left-color: #00bcd4;
+  background-color: #003344;
+  border-left: 5px solid #00bcd4;
 }
 
 .whatsapp-help {
-  margin-top: auto;
-  padding: 15px 25px;
-  border-top: 1px solid #444;
-  background-color: #222;
-  font-weight: 600;
-  font-size: 0.9rem;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .whatsapp-help a {
-  color: #00bcd4;
+  color: #00e676;
   text-decoration: none;
+  font-weight: bold;
 }
 
-.whatsapp-help a:hover {
-  text-decoration: underline;
+main.conteudo {
+  margin-left: 250px;
+  padding: 30px;
+  flex: 1;
+  background-color: #f8f9fb;
+  overflow-x: hidden;
 }
 
-/* Conteúdo principal */
-.conteudo {
-  flex-grow: 1;
-  padding: 30px 40px;
-  overflow-y: auto;
-  background: linear-gradient(135deg, #1f1f1f, #111111);
-}
-
-/* Seções */
 .secao {
   display: none;
 }
@@ -99,248 +84,270 @@ body {
   display: block;
 }
 
-.secao h2 {
-  font-weight: 900;
-  font-size: 2rem;
-  margin-bottom: 8px;
-  color: #00bcd4;
-}
-
-.secao p {
-  font-weight: 600;
-  font-size: 1.1rem;
+/* Funil - área visual */
+.funil-header {
   margin-bottom: 20px;
-  line-height: 1.4;
-  color: #ccc;
 }
 
-/* Títulos da conexão */
-.titulo-principal {
-  font-weight: 900;
-  font-size: 2.4rem;
-  margin-bottom: 8px;
-  color: #00acc1;
+.funis-titulo {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
-.subtitulo {
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 24px;
-  color: #ccc;
+.funis-descricao {
+  color: #444;
+  font-size: 1rem;
+  margin-bottom: 20px;
 }
 
-/* Box da conexão */
-.conexao-box-form {
-  background: linear-gradient(135deg, #222, #333);
-  border-radius: 16px;
-  padding: 25px 30px 40px;
-  max-width: 520px;
-  box-shadow: 0 0 12px rgba(0, 188, 212, 0.6);
-}
-
-/* Status da conexão */
-.linha-status {
+.funis-info-top {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 22px;
 }
 
-.label-status {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #00bcd4;
+.ordenar {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
 }
 
-.status-tag {
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  user-select: none;
-  min-width: 110px;
-  text-align: center;
-  box-shadow: 0 0 8px #000 inset;
+.criar-funil-btn {
+  background-color: #0077cc;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
 }
 
-.status-tag.desconectado {
-  background-color: #b33939;
-  color: #fff;
-  box-shadow: 0 0 18px #b33939;
-}
-
-.status-tag.conectado {
-  background-color: #4caf50;
-  color: #fff;
-  box-shadow: 0 0 18px #4caf50;
-}
-
-/* Área dos botões na conexão */
-.acoes-conexao {
+/* Cards dos funis */
+.funil-lista {
+  margin-top: 20px;
   display: flex;
-  gap: 20px;
-  margin-bottom: 28px;
   flex-wrap: wrap;
+  gap: 20px;
 }
 
-.btn-acao {
+.funil-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.06);
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.funil-detalhes strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.funil-detalhes span {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.funil-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.toggle-funil {
+  width: 50px;
+  height: 26px;
+  background-color: #ccc;
+  border-radius: 20px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-funil::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  background: white;
+  position: absolute;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: 0.3s;
+}
+
+.toggle-funil.ativo {
+  background-color: #00c853;
+}
+
+.toggle-funil.ativo::before {
+  left: 26px;
+}
+
+.entrar-funil {
   background-color: #00bcd4;
   border: none;
-  padding: 14px 28px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  border-radius: 12px;
+  border-radius: 50%;
   color: white;
+  width: 34px;
+  height: 34px;
+  font-size: 1.2rem;
   cursor: pointer;
-  box-shadow: 0 0 20px #00bcd4;
-  transition: background-color 0.3s;
-  user-select: none;
-  min-width: 180px;
-  text-align: center;
 }
 
-.btn-acao:hover {
-  background-color: #0097a7;
+/* Conexão */
+.conexao-box {
+  background: #fff;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  max-width: 700px;
+  margin: auto;
+  margin-top: 20px;
 }
 
-.btn-secundario {
-  background-color: #0288d1;
-  box-shadow: 0 0 15px #0288d1;
+.conexao-status {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
 }
 
-.btn-secundario:hover {
-  background-color: #026c9e;
+.status-box {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  display: inline-block;
+  margin-left: 10px;
 }
 
-.btn-desconectar {
-  background-color: #e55353;
-  box-shadow: 0 0 18px #e55353;
+.status-desconectado {
+  background-color: #e53935;
 }
 
-.btn-desconectar:hover {
-  background-color: #bf4747;
+.status-conectado {
+  background-color: #4caf50;
 }
 
-.oculto {
-  display: none !important;
+.conexao-btns {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 15px;
 }
 
-/* Painel QR Code */
-.painel-qr {
-  margin-top: 10px;
-}
-
-.mensagem-processo {
-  color: #76c776;
-  font-weight: 700;
-  margin-bottom: 12px;
+.conexao-btns button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  background-color: #0077cc;
+  cursor: pointer;
 }
 
 .qrcode-box {
-  width: 240px;
+  margin-top: 20px;
   height: 240px;
-  border-radius: 16px;
   background: linear-gradient(45deg, #00c2ff, #006699);
+  border-radius: 16px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  color: #003344;
   font-weight: 700;
   font-size: 1.1rem;
-  color: #003344;
-  user-select: none;
 }
 
-/* Painel Número */
-.painel-numero {
+.mensagem-processo {
+  text-align: center;
   margin-top: 10px;
-  background: linear-gradient(135deg, #222, #333);
-  border-radius: 16px;
-  padding: 20px 30px;
-  max-width: 380px;
-  box-shadow: 0 0 10px #00bcd4;
+  font-weight: bold;
+  color: #00695c;
 }
 
-.painel-numero label {
-  display: block;
-  font-weight: 700;
-  font-size: 1rem;
-  margin-bottom: 6px;
-  color: #00bcd4;
+.numero-box {
+  margin-top: 20px;
+  padding: 20px;
+  background: #e0f7fa;
+  border-radius: 14px;
 }
 
-.painel-numero select,
-.painel-numero input {
+.numero-box select,
+.numero-box input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
   width: 100%;
-  padding: 10px 12px;
-  font-size: 1rem;
-  border-radius: 10px;
+}
+
+.numero-box button {
+  padding: 10px;
+  width: 100%;
+  background-color: #0097a7;
+  color: white;
   border: none;
-  outline: none;
-  box-shadow: inset 0 0 8px #004f5b;
-  background-color: #111;
-  color: #eee;
-  user-select: text;
+  border-radius: 8px;
+  font-weight: bold;
 }
 
-.btn-conectar-numero {
-  margin-top: 18px;
+/* Suporte */
+.suporte-perguntas button {
+  display: block;
   width: 100%;
-  background-color: #009688;
-  box-shadow: 0 0 15px #009688;
+  margin: 10px 0;
+  padding: 10px;
+  background: #f0f0f0;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
 }
 
-.btn-conectar-numero:hover {
-  background-color: #00796b;
+.suporte-resposta {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #00695c;
 }
 
-.mensagem-numero {
-  margin-top: 12px;
-  font-weight: 700;
-}
-
-/* Scroll do menu lateral */
+/* Rolagem do menu lateral */
 .sidebar::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
-
-.sidebar::-webkit-scrollbar-track {
-  background: #222;
-}
-
 .sidebar::-webkit-scrollbar-thumb {
-  background-color: #00bcd4;
-  border-radius: 4px;
+  background-color: #004466;
+  border-radius: 3px;
 }
 
-/* Responsivo simples */
+/* Responsivo */
 @media (max-width: 700px) {
   .container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .sidebar {
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  .sidebar nav ul {
     flex-direction: column;
   }
-  .sidebar {
-    width: 100%;
-    height: 70px;
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-  }
-  .sidebar nav ul {
-    display: flex;
-    flex-direction: row;
-  }
-  .sidebar nav ul li {
-    flex: 1 0 auto;
-    padding: 15px 12px;
-    font-size: 1.1rem;
-    border-left: none;
-    border-bottom: 5px solid transparent;
-  }
-  .sidebar nav ul li.ativo,
-  .sidebar nav ul li:hover {
-    border-left: none;
-    border-bottom: 5px solid #00bcd4;
-  }
-  .conteudo {
+
+  main.conteudo {
+    margin-left: 250px;
     padding: 20px;
   }
 }
