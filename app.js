@@ -12,7 +12,7 @@ menuItems.forEach(item => {
   });
 });
 
-// Funil: Drag & Drop
+// Funil - DRAG & DROP
 const blocos = document.querySelectorAll('.bloco');
 const funilArea = document.getElementById('funil-area');
 
@@ -24,46 +24,80 @@ blocos.forEach(bloco => {
 
 funilArea.addEventListener('dragover', e => e.preventDefault());
 
+let nodeIdCounter = 1;
+let nodes = [];
+
 funilArea.addEventListener('drop', e => {
   e.preventDefault();
   const tipo = e.dataTransfer.getData("tipo");
-  const item = document.createElement('div');
-  item.className = 'funil-item';
-  item.textContent = tipo === 'mensagem' ? '💬 Mensagem de Texto' : '⏱ Delay';
-  funilArea.appendChild(item);
+
+  const pos = {
+    x: e.offsetX || 100,
+    y: e.offsetY || 100
+  };
+
+  const novoNode = {
+    id: Date.now().toString(),
+    type: tipo === 'mensagem' ? 'messageNode' : 'delayNode',
+    position: pos,
+    width: 384,
+    height: tipo === 'mensagem' ? 200 : 150,
+    data: {
+      label: tipo === 'mensagem' ? 'Mensagem de Texto' : 'Delay'
+    }
+  };
+
+  nodes.push(novoNode);
+  renderNode(novoNode);
 });
 
-// Exportar funil
+function renderNode(node) {
+  const item = document.createElement('div');
+  item.className = 'funil-item';
+  item.style.position = 'absolute';
+  item.style.left = `${node.position.x}px`;
+  item.style.top = `${node.position.y}px`;
+  item.textContent = node.data.label;
+  funilArea.appendChild(item);
+}
+
+// EXPORTAÇÃO AVANÇADA
 document.getElementById('exportar').addEventListener('click', () => {
-  const funil = Array.from(document.querySelectorAll('.funil-item')).map(el => el.textContent);
-  const blob = new Blob([JSON.stringify(funil)], { type: 'application/json' });
+  const estrutura = {
+    data: {
+      nodes: nodes
+    }
+  };
+  const blob = new Blob([JSON.stringify(estrutura, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'meu_funil.json';
+  a.download = 'funil_mickychat.json';
   a.click();
 });
 
-// Importar funil
+// IMPORTAÇÃO AVANÇADA
 document.getElementById('importar').addEventListener('change', e => {
   const file = e.target.files[0];
   if (!file) return;
 
   const reader = new FileReader();
   reader.onload = function(evt) {
-    const data = JSON.parse(evt.target.result);
-    funilArea.innerHTML = '';
-    data.forEach(texto => {
-      const item = document.createElement('div');
-      item.className = 'funil-item';
-      item.textContent = texto;
-      funilArea.appendChild(item);
+    const json = JSON.parse(evt.target.result);
+    const dados = json.data?.nodes || [];
+
+    nodes = []; // limpa o array
+    funilArea.innerHTML = ''; // limpa a tela
+
+    dados.forEach(node => {
+      nodes.push(node);
+      renderNode(node);
     });
   };
   reader.readAsText(file);
 });
 
-// Suporte Automático
+// SUPORTE AUTOMÁTICO
 function respostaSuporte(tipo) {
   const area = document.getElementById('resposta-suporte');
   let resposta = '';
@@ -82,7 +116,7 @@ function respostaSuporte(tipo) {
       resposta = 'Clique aqui para falar com um humano no WhatsApp: <a href="https://wa.me/SEUNUMERO" target="_blank">Falar com Suporte</a>';
       break;
     case 'sugestao':
-      resposta = 'Obrigado pela sugestão! Você pode enviar detalhes clicando aqui: <a href="https://wa.me/SEUNUMERO?text=Tenho+uma+sugest%C3%A3o+ou+reclama%C3%A7%C3%A3o" target="_blank">Enviar sugestão</a>';
+      resposta = 'Obrigado pela sugestão! Envie detalhes clicando aqui: <a href="https://wa.me/SEUNUMERO?text=Tenho+uma+sugest%C3%A3o+ou+reclama%C3%A7%C3%A3o" target="_blank">Enviar sugestão</a>';
       break;
     default:
       resposta = 'Desculpe, não entendi sua pergunta.';
@@ -91,7 +125,7 @@ function respostaSuporte(tipo) {
   area.innerHTML = resposta;
 }
 
-// Extensão - Simula download
+// EXTENSÃO - Simula download
 function baixarExtensao() {
   window.open('https://example.com/mickychat-extensao.zip', '_blank');
 }
