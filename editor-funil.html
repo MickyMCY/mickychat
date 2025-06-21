@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Editor de Funil - MickyChat</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #0f172a;
       color: white;
-      overflow: hidden;
+      overflow: hidden; /* remove barras de scroll da janela */
+      user-select: none; /* para não selecionar texto ao arrastar */
     }
 
     .editor-topbar {
@@ -20,6 +24,7 @@
       align-items: center;
       padding: 16px;
       background-color: #1e293b;
+      user-select: auto;
     }
 
     .editor-topbar button {
@@ -30,12 +35,12 @@
       padding: 10px 16px;
       border-radius: 6px;
       cursor: pointer;
+      user-select: none;
     }
 
     .editor-container {
       display: flex;
       height: calc(100vh - 60px);
-      overflow: hidden;
     }
 
     .editor-sidebar {
@@ -43,6 +48,7 @@
       background-color: #1e293b;
       padding: 20px;
       overflow-y: auto;
+      user-select: auto;
     }
 
     .editor-sidebar h3 {
@@ -63,6 +69,7 @@
       text-align: center;
       cursor: grab;
       font-weight: bold;
+      user-select: none;
     }
 
     .editor-canvas {
@@ -72,25 +79,13 @@
       border: 2px dashed #475569;
       border-radius: 10px;
       margin: 15px;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .canvas-scroll-container {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      position: relative;
+      overflow: hidden; /* remover scrollbars visíveis */
+      min-width: 10000px;
+      min-height: 6000px;
       cursor: grab;
     }
-
-    .canvas-scroll-area {
-      width: 10000px;
-      height: 6000px;
-      position: absolute;
-      top: 0;
-      left: 0;
+    .editor-canvas:active {
+      cursor: grabbing;
     }
 
     .editor-bloco {
@@ -101,6 +96,7 @@
       border-radius: 10px;
       width: 280px;
       cursor: move;
+      user-select: none;
     }
 
     .dropdown {
@@ -121,6 +117,7 @@
       top: 50px;
       left: 50px;
       width: 320px;
+      user-select: none;
     }
 
     .conector-topo, .conector-lateral {
@@ -175,30 +172,26 @@
       </div>
     </aside>
 
-    <div class="editor-canvas">
-      <div class="canvas-scroll-container" id="canvas-scroll-container">
-        <div id="canvas-editor" class="canvas-scroll-area">
-          <div class="inicio-box">
-            <div class="conector-topo"></div>
-            <label for="tempo">Tempo mínimo:</label>
-            <div style="display: flex; gap: 10px;">
-              <input type="number" id="tempo" class="dropdown" placeholder="10" style="flex:1;">
-              <select class="dropdown" style="width: 100px;">
-                <option>Minuto</option>
-                <option>Hora</option>
-                <option>Dia</option>
-              </select>
-            </div>
-            <label for="condicao">Condição:</label>
-            <select id="condicao" class="dropdown">
-              <option>Qualquer mensagem</option>
-              <option>Interação</option>
-              <option>Resposta a botão</option>
-              <option>Mensagem específica</option>
-            </select>
-            <div class="conector-lateral"></div>
-          </div>
+    <div id="canvas-editor" class="editor-canvas">
+      <div class="inicio-box">
+        <div class="conector-topo"></div>
+        <label for="tempo">Tempo mínimo:</label>
+        <div style="display: flex; gap: 10px;">
+          <input type="number" id="tempo" class="dropdown" placeholder="10" style="flex:1;">
+          <select class="dropdown" style="width: 100px;">
+            <option>Minuto</option>
+            <option>Hora</option>
+            <option>Dia</option>
+          </select>
         </div>
+        <label for="condicao">Condição:</label>
+        <select id="condicao" class="dropdown">
+          <option>Qualquer mensagem</option>
+          <option>Interação</option>
+          <option>Resposta a botão</option>
+          <option>Mensagem específica</option>
+        </select>
+        <div class="conector-lateral"></div>
       </div>
     </div>
   </div>
@@ -208,6 +201,13 @@
     let canvas = document.getElementById("canvas-editor");
     let blocoCount = 0;
     let jsPlumbInstance;
+
+    // Variáveis para controle do arrastar do canvas
+    let isDraggingCanvas = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let offsetX = 0;
+    let offsetY = 0;
 
     document.addEventListener("DOMContentLoaded", function () {
       jsPlumbInstance = jsPlumb.getInstance();
@@ -225,8 +225,9 @@
         const tipo = e.dataTransfer.getData("tipo");
         const novo = document.createElement("div");
         novo.className = "editor-bloco";
-        novo.style.top = `${e.offsetY}px`;
-        novo.style.left = `${e.offsetX}px`;
+        // Posicionar considerando offset de pan
+        novo.style.top = `${e.offsetY - offsetY}px`;
+        novo.style.left = `${e.offsetX - offsetX}px`;
         novo.id = "bloco-" + blocoCount++;
         novo.innerHTML = `<strong>${tipo.toUpperCase()}</strong><br><small>ID: ${novo.id}</small>`;
 
@@ -244,40 +245,36 @@
         jsPlumbInstance.makeTarget(conectorEntrada, { anchor: "Top" });
       });
 
-      const scrollContainer = document.getElementById("canvas-scroll-container");
-      let isDragging = false;
-      let startX, startY, scrollLeft, scrollTop;
-
-      scrollContainer.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        scrollContainer.style.cursor = "grabbing";
-        startX = e.pageX - scrollContainer.offsetLeft;
-        startY = e.pageY - scrollContainer.offsetTop;
-        scrollLeft = scrollContainer.scrollLeft;
-        scrollTop = scrollContainer.scrollTop;
+      // Controlar pan do canvas com mouse
+      canvas.addEventListener("mousedown", e => {
+        if (e.target === canvas) {
+          isDraggingCanvas = true;
+          lastMouseX = e.clientX;
+          lastMouseY = e.clientY;
+          canvas.style.cursor = "grabbing";
+        }
       });
 
-      scrollContainer.addEventListener("mouseleave", () => {
-        isDragging = false;
-        scrollContainer.style.cursor = "grab";
+      window.addEventListener("mouseup", e => {
+        if (isDraggingCanvas) {
+          isDraggingCanvas = false;
+          canvas.style.cursor = "grab";
+        }
       });
 
-      scrollContainer.addEventListener("mouseup", () => {
-        isDragging = false;
-        scrollContainer.style.cursor = "grab";
+      window.addEventListener("mousemove", e => {
+        if (isDraggingCanvas) {
+          let dx = e.clientX - lastMouseX;
+          let dy = e.clientY - lastMouseY;
+          offsetX += dx;
+          offsetY += dy;
+          canvas.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+          lastMouseX = e.clientX;
+          lastMouseY = e.clientY;
+        }
       });
 
-      scrollContainer.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX - scrollContainer.offsetLeft;
-        const y = e.pageY - scrollContainer.offsetTop;
-        const walkX = x - startX;
-        const walkY = y - startY;
-        scrollContainer.scrollLeft = scrollLeft - walkX;
-        scrollContainer.scrollTop = scrollTop - walkY;
-      });
-
+      // Ler o nome do funil se vier no URL
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
       if (id !== null) {
