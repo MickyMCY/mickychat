@@ -8,6 +8,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
   />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/jsplumb.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -15,7 +16,6 @@
       background-color: #0f172a;
       color: white;
       overflow: hidden;
-      user-select: none;
     }
 
     .editor-topbar {
@@ -24,7 +24,6 @@
       align-items: center;
       padding: 16px;
       background-color: #1e293b;
-      user-select: auto;
     }
 
     .editor-topbar button {
@@ -35,7 +34,6 @@
       padding: 10px 16px;
       border-radius: 6px;
       cursor: pointer;
-      user-select: none;
     }
 
     .editor-container {
@@ -44,31 +42,28 @@
     }
 
     .editor-sidebar {
-      width: 260px;
+      width: 240px;
       background-color: #1e293b;
       padding: 20px;
       overflow-y: auto;
-    }
 
-    .editor-sidebar h3 {
-      margin-bottom: 12px;
-    }
-
-    .bloco-container {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
 
+    .editor-sidebar h3 {
+      grid-column: 1 / -1; /* Ocupa as duas colunas */
+      margin-bottom: 12px;
+    }
+
     .bloco {
-      flex: 1 1 calc(50% - 6px);
       padding: 12px;
       background-color: #334155;
       border-radius: 6px;
       text-align: center;
       cursor: grab;
       font-weight: bold;
-      user-select: none;
     }
 
     .editor-canvas {
@@ -78,12 +73,7 @@
       border: 2px dashed #475569;
       border-radius: 10px;
       margin: 15px;
-      min-width: 10000px;
-      min-height: 6000px;
-      cursor: grab;
-    }
-    .editor-canvas:active {
-      cursor: grabbing;
+      overflow: hidden; /* aqui está a alteração */
     }
 
     .editor-bloco {
@@ -94,7 +84,6 @@
       border-radius: 10px;
       width: 280px;
       cursor: move;
-      user-select: none;
     }
 
     .dropdown {
@@ -115,10 +104,10 @@
       top: 50px;
       left: 50px;
       width: 320px;
-      user-select: none;
     }
 
-    .conector-topo, .conector-lateral {
+    .conector-topo,
+    .conector-lateral {
       width: 14px;
       height: 14px;
       border-radius: 50%;
@@ -144,29 +133,36 @@
 <body>
   <div class="editor-topbar">
     <button onclick="history.back()">⬅ Voltar</button>
-    <span>🧠 Editor de Funil: <strong id="nome-do-funil">Funil sem título</strong></span>
+    <span
+      >🧠 Editor de Funil:
+      <strong id="nome-do-funil">Funil sem título</strong></span
+    >
     <button onclick="salvarEditor()">💾 Salvar</button>
   </div>
 
   <div class="editor-container">
     <aside class="editor-sidebar">
       <h3>Mensagens</h3>
-      <div class="bloco-container">
-        <div class="bloco" draggable="true" data-tipo="texto">📝 Texto</div>
-        <div class="bloco" draggable="true" data-tipo="imagem">🖼 Imagem</div>
-        <div class="bloco" draggable="true" data-tipo="musica">🎵 Música</div>
-        <div class="bloco" draggable="true" data-tipo="audio">🎤 Áudio</div>
-        <div class="bloco" draggable="true" data-tipo="video">🎥 Video</div>
-        <div class="bloco" draggable="true" data-tipo="documento">📄 Documento</div>
-      </div>
+      <div class="bloco" draggable="true" data-tipo="texto">📝 Texto</div>
+      <div class="bloco" draggable="true" data-tipo="imagem">🖼 Imagem</div>
+      <div class="bloco" draggable="true" data-tipo="musica">🎵 Música</div>
+      <div class="bloco" draggable="true" data-tipo="audio">🎤 Áudio</div>
+      <div class="bloco" draggable="true" data-tipo="video">🎥 Video</div>
+      <div class="bloco" draggable="true" data-tipo="documento">📄 Documento</div>
+
       <h3>Lógica</h3>
-      <div class="bloco-container">
-        <div class="bloco" draggable="true" data-tipo="caminhos">🔀 Caminhos</div>
-        <div class="bloco" draggable="true" data-tipo="esperar">⏱️ Esperar</div>
-        <div class="bloco" draggable="true" data-tipo="perguntar">❓ Perguntar</div>
-        <div class="bloco" draggable="true" data-tipo="tags">🏷️ Tags</div>
-        <div class="bloco" draggable="true" data-tipo="variaveis">📦 Variáveis</div>
-        <div class="bloco" draggable="true" data-tipo="funilIA" style="background-color:#facc15; color:#000;">🤖 Funil com IA <span style="font-size:0.8em">Novo</span></div>
+      <div class="bloco" draggable="true" data-tipo="caminhos">🔀 Caminhos</div>
+      <div class="bloco" draggable="true" data-tipo="esperar">⏱️ Esperar</div>
+      <div class="bloco" draggable="true" data-tipo="perguntar">❓ Perguntar</div>
+      <div class="bloco" draggable="true" data-tipo="tags">🏷️ Tags</div>
+      <div class="bloco" draggable="true" data-tipo="variaveis">📦 Variáveis</div>
+      <div
+        class="bloco"
+        draggable="true"
+        data-tipo="funilIA"
+        style="background-color: #facc15; color: #000"
+      >
+        🤖 Funil com IA <span style="font-size: 0.8em">Novo</span>
       </div>
     </aside>
 
@@ -175,7 +171,13 @@
         <div class="conector-topo"></div>
         <label for="tempo">Tempo mínimo:</label>
         <div style="display: flex; gap: 10px;">
-          <input type="number" id="tempo" class="dropdown" placeholder="10" style="flex:1;">
+          <input
+            type="number"
+            id="tempo"
+            class="dropdown"
+            placeholder="10"
+            style="flex: 1"
+          />
           <select class="dropdown" style="width: 100px;">
             <option>Minuto</option>
             <option>Hora</option>
@@ -194,98 +196,49 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/jsplumb.min.js"></script>
   <script>
-    let canvas = document.getElementById("canvas-editor");
+    let canvas = document.getElementById('canvas-editor');
     let blocoCount = 0;
     let jsPlumbInstance;
 
-    // Variáveis para controle do arrastar do canvas
-    let isDraggingCanvas = false;
-    let lastMouseX = 0;
-    let lastMouseY = 0;
-    let offsetX = 0;
-    let offsetY = 0;
-
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener('DOMContentLoaded', function () {
       jsPlumbInstance = jsPlumb.getInstance();
 
-      document.querySelectorAll(".bloco").forEach(bloco => {
-        bloco.addEventListener("dragstart", e => {
-          e.dataTransfer.setData("tipo", bloco.getAttribute("data-tipo"));
+      document.querySelectorAll('.bloco').forEach((bloco) => {
+        bloco.addEventListener('dragstart', (e) => {
+          e.dataTransfer.setData('tipo', bloco.getAttribute('data-tipo'));
         });
       });
 
-      canvas.addEventListener("dragover", e => e.preventDefault());
+      canvas.addEventListener('dragover', (e) => e.preventDefault());
 
-      canvas.addEventListener("drop", e => {
+      canvas.addEventListener('drop', (e) => {
         e.preventDefault();
-        const tipo = e.dataTransfer.getData("tipo");
-        const novo = document.createElement("div");
-        novo.className = "editor-bloco";
-        // Posicionar considerando offset de pan
-        novo.style.top = `${e.offsetY - offsetY}px`;
-        novo.style.left = `${e.offsetX - offsetX}px`;
-        novo.id = "bloco-" + blocoCount++;
+        const tipo = e.dataTransfer.getData('tipo');
+        const novo = document.createElement('div');
+        novo.className = 'editor-bloco';
+        novo.style.top = `${e.offsetY}px`;
+        novo.style.left = `${e.offsetX}px`;
+        novo.id = 'bloco-' + blocoCount++;
         novo.innerHTML = `<strong>${tipo.toUpperCase()}</strong><br><small>ID: ${novo.id}</small>`;
 
-        const conectorEntrada = document.createElement("div");
-        conectorEntrada.className = "conector-topo";
+        const conectorEntrada = document.createElement('div');
+        conectorEntrada.className = 'conector-topo';
         novo.appendChild(conectorEntrada);
 
-        const conectorSaida = document.createElement("div");
-        conectorSaida.className = "conector-lateral";
+        const conectorSaida = document.createElement('div');
+        conectorSaida.className = 'conector-lateral';
         novo.appendChild(conectorSaida);
 
         canvas.appendChild(novo);
         jsPlumbInstance.draggable(novo);
-        jsPlumbInstance.makeSource(conectorSaida, { anchor: "Right", connector: ["Flowchart"] });
-        jsPlumbInstance.makeTarget(conectorEntrada, { anchor: "Top" });
+        jsPlumbInstance.makeSource(conectorSaida, { anchor: 'Right', connector: ['Flowchart'] });
+        jsPlumbInstance.makeTarget(conectorEntrada, { anchor: 'Top' });
       });
-
-      // Controlar pan do canvas com mouse
-      canvas.addEventListener("mousedown", e => {
-        if (e.target === canvas) {
-          isDraggingCanvas = true;
-          lastMouseX = e.clientX;
-          lastMouseY = e.clientY;
-          canvas.style.cursor = "grabbing";
-        }
-      });
-
-      window.addEventListener("mouseup", e => {
-        if (isDraggingCanvas) {
-          isDraggingCanvas = false;
-          canvas.style.cursor = "grab";
-        }
-      });
-
-      window.addEventListener("mousemove", e => {
-        if (isDraggingCanvas) {
-          let dx = e.clientX - lastMouseX;
-          let dy = e.clientY - lastMouseY;
-          offsetX += dx;
-          offsetY += dy;
-          canvas.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-          lastMouseX = e.clientX;
-          lastMouseY = e.clientY;
-        }
-      });
-
-      // Ler o nome do funil se vier no URL
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
-      if (id !== null) {
-        const funis = JSON.parse(localStorage.getItem("funis")) || [];
-        const funil = funis[parseInt(id)];
-        if (funil) {
-          document.getElementById("nome-do-funil").textContent = funil.nome;
-        }
-      }
     });
 
     function salvarEditor() {
-      alert("(Futuro) Salvar fluxograma visual do funil.");
+      alert('(Futuro) Salvar fluxograma visual do funil.');
     }
   </script>
 </body>
