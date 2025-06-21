@@ -27,86 +27,57 @@
     </aside>
 
     <main class="conteudo">
+      <!-- Métricas -->
       <section id="metricas" class="secao ativa">
         <h2>📊 Métricas</h2>
         <p>Resumo do sistema e estatísticas futuras aparecerão aqui.</p>
       </section>
 
+      <!-- Conexão -->
       <section id="conexao" class="secao">
-        <h1 class="conexao-titulo">Conexão</h1>
-        <p class="conexao-subtitulo">Conecte e verifique sua conexão com o WhatsApp</p>
-
+        <h2>🔌 Conexão</h2>
+        <p class="sub">Conecte e verifique sua conexão com o WhatsApp</p>
         <div class="box-conexao">
-          <div class="status-conexao">
-            <strong>Status:</strong>
-            <span id="status-indicador" class="desconectado">Desconectado</span>
+          <div class="status-conexao status-desconectado">Status: Desconectado</div>
+          <button class="btn-secundario">Conecte um número</button>
+          <button class="btn-principal" onclick="gerarQRCode()">Conectar</button>
+          <div class="mensagem-qrcode" id="mensagem-qrcode" style="display:none">
+            ⏳ Gerando QR-Code... isso pode levar até 1 minuto.
           </div>
-
-          <button class="botao-primario" onclick="mostrarNumero()">Conecte um número</button>
-
-          <button class="botao-destaque" onclick="gerarQRCode()">Conectar via QR-Code</button>
-
-          <div id="mensagem-qrcode" class="mensagem-qrcode"></div>
-
-          <div id="conectar-por-numero" class="box-numero" style="display:none;">
-            <label for="pais-select">Escolha seu país:</label>
-            <select id="pais-select" onchange="atualizarCodigo()">
-              <option value="+258">🇲🇿 Moçambique (+258)</option>
-              <option value="+55">🇧🇷 Brasil (+55)</option>
-              <option value="+351">🇵🇹 Portugal (+351)</option>
-              <option value="+244">🇦🇴 Angola (+244)</option>
-              <!-- Adicione mais países conforme desejar -->
-            </select>
-
-            <div class="numero-input">
-              <span id="codigo-pais">+258</span>
-              <input type="text" id="numero-wpp" placeholder="Digite seu número" />
-            </div>
-
-            <button class="botao-destaque" onclick="conectarPorNumero()">Conectar via Número</button>
+          <div class="qrcode-area" id="qrcode-area" style="display:none">
+            <!-- QR aparecerá aqui -->
+            <img src="qrcode.png" alt="QR-Code">
+          </div>
+          <div class="alternativa-numero">
+            <a href="#" onclick="abrirConexaoNumero()">Ou conectar com número</a>
           </div>
         </div>
       </section>
 
+      <!-- Funis -->
       <section id="funis" class="secao">
         <div class="funil-header">
           <h1 class="funis-titulo">📈 Funis de Venda</h1>
           <p class="funis-descricao">
-            Automatize conversas criando rotas inteligentes que são ativadas assim que um cliente entrar em contacto com você.
+            Crie fluxos automatizados que iniciam assim que um cliente entra em contacto com você.
           </p>
-          <div class="funis-info-top">
-            <span>Exibindo 1 funil criado</span>
-            <span>Ordenar por:
-              <select class="ordenar">
-                <option>Mais recentes primeiro</option>
-                <option>Mais antigos primeiro</option>
-              </select>
-            </span>
-          </div>
-          <div class="funil-acao">
-            <button class="criar-funil-btn" onclick="abrirCriadorFunil()">➕ Criar Funil</button>
+          <div class="funil-controle-topo">
+            <span>Exibindo <span id="contador-funis">0</span> funis criados</span>
+            <button class="criar-funil-btn" onclick="criarNovoFunil()">➕ Criar Funil</button>
           </div>
         </div>
-
-        <div class="funil-lista">
-          <div class="funil-card">
-            <div class="funil-detalhes">
-              <strong>Funil de Boas-Vindas</strong>
-              <span>Status: <span class="ativo">Ativo</span></span>
-            </div>
-            <div class="funil-acoes">
-              <button class="toggle-funil">🔁 Ativar/Desativar</button>
-              <button class="entrar-funil" onclick="entrarNoEditor()">➡️ Editar</button>
-            </div>
-          </div>
+        <div class="funil-grid" id="lista-funis">
+          <!-- Os funis serão inseridos aqui dinamicamente -->
         </div>
       </section>
 
+      <!-- Disparos -->
       <section id="disparos" class="secao">
         <h2>🚀 Disparos</h2>
         <p>Controle de conversas ativas, envio e pausa manual aparecerão aqui.</p>
       </section>
 
+      <!-- Suporte -->
       <section id="suporte" class="secao">
         <h2>💬 Suporte Automático</h2>
         <p>Escolha abaixo uma dúvida ou problema:</p>
@@ -120,12 +91,14 @@
         <div id="resposta-suporte" class="suporte-resposta"></div>
       </section>
 
+      <!-- Extensão -->
       <section id="extensao" class="secao">
         <h2>🧷 Extensão Web - MChat Helper</h2>
         <p>Clique abaixo para baixar a extensão que facilita a automação no seu navegador.</p>
         <button onclick="baixarExtensao()">⬇️ Baixar Extensão (.zip)</button>
       </section>
 
+      <!-- Sair -->
       <section id="sair" class="secao">
         <h2>🚪 Sair</h2>
         <p>Você saiu do sistema com sucesso.</p>
