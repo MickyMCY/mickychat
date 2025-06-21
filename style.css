@@ -1,93 +1,96 @@
-/* Reset e body */
+/* Reset básico */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #111822;
+  background-color: #121212;
   color: #eee;
-  font-weight: 600;
-  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Container principal */
 .container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* Sidebar menu fixo e com rolagem */
+/* Sidebar lateral */
 .sidebar {
-  width: 240px;
-  background-color: #0b1220;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
+  background-color: #222;
+  color: #eee;
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  z-index: 999;
+  position: relative;
 }
 
-/* Menu navegação */
-.sidebar nav ul {
-  padding-top: 90px;
-  margin: 0;
-  list-style: none;
-}
-
-.sidebar nav ul li {
-  padding: 16px 20px;
-  cursor: pointer;
-  color: #ccc;
-  font-weight: 600;
+.logo {
+  font-size: 1.5rem;
+  font-weight: 900;
+  padding: 20px;
+  border-bottom: 1px solid #444;
+  position: sticky;
+  top: 0;
+  background-color: #222;
+  z-index: 10;
   user-select: none;
 }
 
-.sidebar nav ul li:hover,
-.sidebar nav ul li.ativo {
-  background-color: #1c2533;
-  color: #00C2FF;
+.sidebar nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* Logo fixada */
-.logo {
+.sidebar nav ul li {
+  padding: 15px 25px;
+  cursor: pointer;
   font-weight: 700;
-  font-size: 1.5rem;
-  padding: 18px 20px;
-  border-bottom: 1px solid #2f3a4a;
-  color: #00C2FF;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 240px;
-  background-color: #0b1220;
-  z-index: 1000;
+  font-size: 1rem;
+  border-left: 5px solid transparent;
+  transition: background-color 0.3s, border-left-color 0.3s;
+  user-select: none;
 }
 
-/* WhatsApp ajuda no rodapé da sidebar */
+.sidebar nav ul li.ativo,
+.sidebar nav ul li:hover {
+  background-color: #333;
+  border-left-color: #00bcd4;
+}
+
 .whatsapp-help {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-  padding: 10px;
+  margin-top: auto;
+  padding: 15px 25px;
+  border-top: 1px solid #444;
+  background-color: #222;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .whatsapp-help a {
-  color: #00C2FF;
+  color: #00bcd4;
   text-decoration: none;
-  font-weight: 600;
+}
+
+.whatsapp-help a:hover {
+  text-decoration: underline;
 }
 
 /* Conteúdo principal */
 .conteudo {
-  margin-left: 240px;
-  padding: 40px;
-  flex: 1;
-  background-color: #111822;
+  flex-grow: 1;
+  padding: 30px 40px;
   overflow-y: auto;
+  background: linear-gradient(135deg, #1f1f1f, #111111);
 }
 
-/* Seções do painel */
+/* Seções */
 .secao {
   display: none;
 }
@@ -96,211 +99,248 @@ body {
   display: block;
 }
 
-/* Títulos */
+.secao h2 {
+  font-weight: 900;
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: #00bcd4;
+}
+
+.secao p {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+/* Títulos da conexão */
 .titulo-principal {
-  font-weight: 800;
+  font-weight: 900;
   font-size: 2.4rem;
-  margin-bottom: 6px;
-  color: #eee;
+  margin-bottom: 8px;
+  color: #00acc1;
 }
 
 .subtitulo {
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   margin-bottom: 24px;
-  color: #bbb;
-}
-
-/* Box conexão - estilo formulário que pediu */
-.conexao-box-form {
-  background-color: #15202b;
-  border-radius: 20px;
-  padding: 36px 32px 48px 32px;
-  max-width: 560px;
-  box-shadow: 0 0 20px rgba(0, 194, 255, 0.15);
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
   color: #ccc;
-  user-select: none;
 }
 
-/* Linha status */
+/* Box da conexão */
+.conexao-box-form {
+  background: linear-gradient(135deg, #222, #333);
+  border-radius: 16px;
+  padding: 25px 30px 40px;
+  max-width: 520px;
+  box-shadow: 0 0 12px rgba(0, 188, 212, 0.6);
+}
+
+/* Status da conexão */
 .linha-status {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  margin-bottom: 22px;
 }
 
-/* Label do status */
 .label-status {
   font-weight: 700;
-  font-size: 1.3rem;
-  color: #ddd;
-  min-width: 70px;
+  font-size: 1.1rem;
+  color: #00bcd4;
 }
 
-/* Tag status */
 .status-tag {
+  padding: 6px 16px;
+  border-radius: 20px;
   font-weight: 700;
   font-size: 1.1rem;
-  padding: 10px 24px;
-  border-radius: 28px;
-  color: white;
   user-select: none;
-  min-width: 140px;
+  min-width: 110px;
   text-align: center;
-  box-shadow: 0 0 12px rgba(0,0,0,0.6);
-  transition: background-color 0.3s ease;
+  box-shadow: 0 0 8px #000 inset;
 }
 
 .status-tag.desconectado {
-  background-color: #b63232;
-  box-shadow: 0 0 20px #b63232;
+  background-color: #b33939;
+  color: #fff;
+  box-shadow: 0 0 18px #b33939;
 }
 
 .status-tag.conectado {
-  background-color: #2eb82e;
-  box-shadow: 0 0 20px #2eb82e;
+  background-color: #4caf50;
+  color: #fff;
+  box-shadow: 0 0 18px #4caf50;
 }
 
-/* Botões principais */
+/* Área dos botões na conexão */
+.acoes-conexao {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
 .btn-acao {
-  background-color: #00c2ff;
-  color: #0b1220;
+  background-color: #00bcd4;
   border: none;
-  border-radius: 26px;
-  padding: 16px 36px;
+  padding: 14px 28px;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  color: white;
   cursor: pointer;
-  box-shadow: 0 0 20px #00c2ff;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 0 20px #00bcd4;
+  transition: background-color 0.3s;
   user-select: none;
+  min-width: 180px;
+  text-align: center;
 }
 
 .btn-acao:hover {
-  background-color: #00a5d9;
+  background-color: #0097a7;
 }
 
-/* Botão secundário */
 .btn-secundario {
-  background-color: transparent;
-  border: 2px solid #00c2ff;
-  color: #00c2ff;
-  margin-left: 16px;
-  transition: all 0.3s ease;
+  background-color: #0288d1;
+  box-shadow: 0 0 15px #0288d1;
 }
 
 .btn-secundario:hover {
-  background-color: #00c2ff;
-  color: #0b1220;
+  background-color: #026c9e;
 }
 
-/* Painel QR */
-.painel-qr, .painel-numero {
-  margin-top: 24px;
-  padding: 28px 26px;
-  background: linear-gradient(120deg, #07161f 0%, #0b1d29 100%);
-  border-radius: 20px;
-  box-shadow: 0 0 25px rgba(0,194,255,0.2);
-  color: #a5d9ff;
-  user-select: none;
+.btn-desconectar {
+  background-color: #e55353;
+  box-shadow: 0 0 18px #e55353;
+}
+
+.btn-desconectar:hover {
+  background-color: #bf4747;
 }
 
 .oculto {
   display: none !important;
 }
 
-/* Mensagem do processo */
-.mensagem-processo {
-  font-weight: 600;
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-  color: #7de077;
+/* Painel QR Code */
+.painel-qr {
+  margin-top: 10px;
 }
 
-/* Container QR */
+.mensagem-processo {
+  color: #76c776;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
 .qrcode-box {
   width: 240px;
   height: 240px;
-  background: linear-gradient(45deg, #00c2ff, #006699);
   border-radius: 16px;
+  background: linear-gradient(45deg, #00c2ff, #006699);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   font-weight: 700;
   font-size: 1.1rem;
   color: #003344;
   user-select: none;
 }
 
-/* Painel número - selects e input estilo formulário */
+/* Painel Número */
+.painel-numero {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #222, #333);
+  border-radius: 16px;
+  padding: 20px 30px;
+  max-width: 380px;
+  box-shadow: 0 0 10px #00bcd4;
+}
+
 .painel-numero label {
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 6px;
   display: block;
-  color: #ccc;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #00bcd4;
 }
 
 .painel-numero select,
 .painel-numero input {
   width: 100%;
-  padding: 14px 18px;
-  font-size: 1.1rem;
-  border-radius: 18px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 10px;
   border: none;
   outline: none;
-  background-color: #111f2f;
+  box-shadow: inset 0 0 8px #004f5b;
+  background-color: #111;
   color: #eee;
-  box-shadow: inset 0 0 6px rgba(0, 194, 255, 0.4);
-  margin-bottom: 16px;
-  transition: box-shadow 0.3s ease;
+  user-select: text;
 }
 
-.painel-numero select:focus,
-.painel-numero input:focus {
-  box-shadow: 0 0 10px #00c2ff;
-}
-
-/* Botão conectar número */
 .btn-conectar-numero {
-  background-color: #2eb82e;
-  color: white;
-  font-weight: 700;
-  padding: 14px;
-  border-radius: 18px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 0 15px #2eb82e;
-  transition: background-color 0.3s ease;
-  user-select: none;
+  margin-top: 18px;
+  width: 100%;
+  background-color: #009688;
+  box-shadow: 0 0 15px #009688;
 }
 
 .btn-conectar-numero:hover {
-  background-color: #279b27;
+  background-color: #00796b;
 }
 
-/* Mensagem erro/sucesso número */
 .mensagem-numero {
-  font-weight: 600;
-  font-size: 1rem;
-  margin-top: 6px;
-  min-height: 1.4em;
+  margin-top: 12px;
+  font-weight: 700;
 }
 
-/* Scroll no conteúdo */
-.conteudo {
-  overflow-y: auto;
-  max-height: 100vh;
+/* Scroll do menu lateral */
+.sidebar::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Acessibilidade - foco */
-.btn-acao:focus,
-.btn-secundario:focus,
-.painel-numero select:focus,
-.painel-numero input:focus {
-  outline: 3px solid #00c2ff;
-  outline-offset: 2px;
+.sidebar::-webkit-scrollbar-track {
+  background: #222;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #00bcd4;
+  border-radius: 4px;
+}
+
+/* Responsivo simples */
+@media (max-width: 700px) {
+  .container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .sidebar nav ul {
+    display: flex;
+    flex-direction: row;
+  }
+  .sidebar nav ul li {
+    flex: 1 0 auto;
+    padding: 15px 12px;
+    font-size: 1.1rem;
+    border-left: none;
+    border-bottom: 5px solid transparent;
+  }
+  .sidebar nav ul li.ativo,
+  .sidebar nav ul li:hover {
+    border-left: none;
+    border-bottom: 5px solid #00bcd4;
+  }
+  .conteudo {
+    padding: 20px;
+  }
 }
