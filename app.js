@@ -12,7 +12,7 @@ menuItems.forEach(item => {
   });
 });
 
-// Drag & Drop Funil
+// Funil: Drag & Drop
 const blocos = document.querySelectorAll('.bloco');
 const funilArea = document.getElementById('funil-area');
 
@@ -62,3 +62,36 @@ document.getElementById('importar').addEventListener('change', e => {
   };
   reader.readAsText(file);
 });
+
+// Suporte Automático
+function respostaSuporte(tipo) {
+  const area = document.getElementById('resposta-suporte');
+  let resposta = '';
+
+  switch (tipo) {
+    case 'pagamento':
+      resposta = 'Para efetuar o pagamento, acesse o menu Pagamento ou entre em contato pelo WhatsApp.';
+      break;
+    case 'teste':
+      resposta = 'O teste grátis permite usar o sistema por 7 dias. Após isso, o pagamento será necessário.';
+      break;
+    case 'erro':
+      resposta = 'Se já pagou e ainda não desbloqueou, envie o comprovativo para o suporte.';
+      break;
+    case 'humano':
+      resposta = 'Clique aqui para falar com um humano no WhatsApp: <a href="https://wa.me/SEUNUMERO" target="_blank">Falar com Suporte</a>';
+      break;
+    case 'sugestao':
+      resposta = 'Obrigado pela sugestão! Você pode enviar detalhes clicando aqui: <a href="https://wa.me/SEUNUMERO?text=Tenho+uma+sugest%C3%A3o+ou+reclama%C3%A7%C3%A3o" target="_blank">Enviar sugestão</a>';
+      break;
+    default:
+      resposta = 'Desculpe, não entendi sua pergunta.';
+  }
+
+  area.innerHTML = resposta;
+}
+
+// Extensão - Simula download
+function baixarExtensao() {
+  window.open('https://example.com/mickychat-extensao.zip', '_blank');
+}
