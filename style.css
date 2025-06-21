@@ -1,189 +1,211 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #0d1117;
+/* FUNIS CARD NOVO ESTILO */
+.funil-card {
+  background: #151d27;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.funil-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.funil-nome {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.funil-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-text {
+  font-weight: bold;
+  color: #00FF88;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 10px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #00FF88;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+.funil-controles {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-editar {
+  background-color: #00C2FF;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 50%;
+  color: #0D1117;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-editar:hover {
+  background-color: #009ecf;
+}
+
+.btn-mais {
+  background: transparent;
+  color: white;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  padding: 0 8px;
+  line-height: 1;
+}
+
+.funis-titulo {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 6px;
   color: #eee;
 }
 
-.container {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.sidebar {
-  width: 240px;
-  background-color: #161b22;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sidebar .logo {
-  font-size: 20px;
-  margin-bottom: 30px;
-  color: #00C2FF;
-}
-
-.sidebar nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar nav ul li {
-  padding: 12px;
-  margin: 5px 0;
-  background-color: #0d1117;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.sidebar nav ul li:hover,
-.sidebar nav ul li.ativo {
-  background-color: #238636;
-}
-
-.whatsapp-help {
-  margin-top: 20px;
-}
-
-.whatsapp-help a {
-  color: #00ff99;
-  text-decoration: none;
-}
-
-.conteudo {
-  flex: 1;
-  padding: 30px;
-  overflow-y: auto;
-  background-color: #0d1117;
-}
-
-.secao {
-  display: none;
-}
-
-.secao.ativa {
-  display: block;
-}
-
-/* FUNIS */
-.funis-titulo {
-  font-size: 1.8rem;
-  margin-bottom: 5px;
-}
-
 .funis-descricao {
-  color: #aaa;
-  margin-bottom: 15px;
-  max-width: 600px;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 14px;
+  color: #bbb;
 }
 
-.funil-acao {
-  margin-bottom: 20px;
+.funis-info-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.ordenar {
+  background-color: #222d3a;
+  color: #eee;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .criar-funil-btn {
   background-color: #00C2FF;
   color: #0D1117;
-  font-weight: bold;
+  border: none;
   padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
   cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 10px;
 }
 
-.funil-lista {
-  background-color: #161B22;
-  padding: 20px;
-  border-radius: 10px;
+.criar-funil-btn:hover {
+  background-color: #009ecf;
 }
 
-.funil-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0e1622;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
+/* Ajustes para o menu lateral e logo */
+
+.sidebar nav ul {
+  padding-top: 40px; /* deixa as opções mais para cima, com espaço para logo fixa */
+  margin: 0;
+  list-style: none;
 }
 
-.funil-detalhes strong {
-  font-size: 1.2rem;
-}
-
-.ativo {
-  color: #00FF88;
-  font-weight: bold;
-}
-
-/* EDITOR DE FUNIS */
-.editor-painel {
-  display: flex;
-  height: 100%;
-}
-
-.editor-esquerda {
-  flex: 1;
-  background: #0e1117;
-  padding: 30px;
-  position: relative;
-  min-height: 500px;
-}
-
-.editor-direita {
-  width: 260px;
-  background: #161B22;
-  padding: 20px;
-  overflow-y: auto;
-  border-left: 2px solid #1F6FEB;
-}
-
-.editor-direita h3 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-}
-
-.bloco-opcao {
-  background: #1F6FEB;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 8px;
-  color: #fff;
-  cursor: grab;
-}
-
-.bloco-opcao.pago {
-  background: #555;
-  color: #ccc;
-  cursor: not-allowed;
-}
-
-.categoria {
-  font-weight: bold;
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 18px 20px 12px 20px;
+  border-bottom: 1px solid #2f3a4a;
   color: #00C2FF;
-  margin-top: 20px;
-  margin-bottom: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  background-color: #0b1220;
+  z-index: 1000;
 }
 
-.bloco-inicio {
-  background: #252D3A;
-  padding: 15px;
-  border-radius: 10px;
-  position: absolute;
-  top: 50px;
-  left: 50px;
+/* Ajustar para o container principal */
+.container {
+  display: flex;
+  min-height: 100vh;
 }
 
-.bloco-inicio select {
-  width: 100%;
-  margin-top: 10px;
-  padding: 5px;
-  border-radius: 6px;
-  border: none;
-  background: #0d1117;
-  color: white;
+.sidebar {
+  width: 240px;
+  background-color: #0b1220;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.7);
+  z-index: 999;
+}
+
+.conteudo {
+  margin-left: 240px;
+  padding: 30px 40px 40px 40px;
+  background-color: #111822;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 100vh;
 }
