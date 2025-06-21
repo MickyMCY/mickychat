@@ -22,7 +22,7 @@
         </ul>
       </nav>
       <div class="whatsapp-help">
-        <a href="https://wa.me/SEUNUMERO" target="_blank" rel="noopener">❓ Ajuda via WhatsApp</a>
+        <a href="https://wa.me/SEUNUMERO" target="_blank">❓ Ajuda via WhatsApp</a>
       </div>
     </aside>
 
@@ -33,58 +33,22 @@
       </section>
 
       <section id="conexao" class="secao">
-        <h2 class="titulo-principal">Conexão</h2>
-        <p class="subtitulo">
-          Conecte seu WhatsApp e verifique seu status para começar a usar.
-        </p>
-
-        <div class="conexao-box-form">
-          <div class="linha-status">
-            <span class="label-status">Status:</span>
-            <span id="statusConexao" class="status-tag desconectado">Desconectado</span>
+        <h2>🔌 Conexão com WhatsApp</h2>
+        <p>Conecte e verifique sua conexão com o WhatsApp.</p>
+        <div class="box-conexao">
+          <div class="status">
+            <strong>Status:</strong>
+            <span class="desconectado">Desconectado</span>
           </div>
-
-          <div class="acoes-conexao">
-            <button id="btnAbrirQr" class="btn-acao" onclick="mostrarPainelQR()">Conectar via QR Code</button>
-            <button id="btnAbrirNumero" class="btn-acao btn-secundario" onclick="mostrarPainelNumero()">Conectar via Número</button>
-            <button id="btnDesconectar" class="btn-acao btn-desconectar oculto" onclick="desconectar()">Desconectar</button>
-          </div>
-
-          <div id="painelQR" class="painel-qr oculto">
-            <div id="mensagemProcesso" class="mensagem-processo">Preparando conexão, aguarde...</div>
-            <div id="qrcodeContainer" class="qrcode-box"></div>
-          </div>
-
-          <div id="painelNumero" class="painel-numero oculto">
-            <label for="paisSelect">Selecione o país:</label>
-            <select id="paisSelect" aria-label="Selecionar país">
-              <option value="+258" selected>🇲🇿 Moçambique (+258)</option>
-              <option value="+55">🇧🇷 Brasil (+55)</option>
-              <option value="+244">🇦🇴 Angola (+244)</option>
-              <option value="+351">🇵🇹 Portugal (+351)</option>
-              <option value="+33">🇫🇷 França (+33)</option>
-            </select>
-
-            <label for="numeroInput" style="margin-top: 16px;">Digite o número (sem código):</label>
-            <input
-              type="tel"
-              id="numeroInput"
-              placeholder="Ex: 841234567"
-              aria-label="Número de telefone"
-            />
-
-            <button class="btn-acao btn-conectar-numero" onclick="conectarViaNumero()">
-              Conectar Número
-            </button>
-
-            <div id="mensagemNumero" class="mensagem-numero"></div>
-          </div>
+          <button class="botao-primario">📱 Conecte um número</button>
+          <button class="botao-destaque" onclick="gerarQRCode()">Conectar</button>
+          <div id="mensagem-qrcode" class="mensagem-qrcode"></div>
         </div>
       </section>
 
       <section id="funis" class="secao">
         <h2>🧩 Funis</h2>
-        <p>Aqui você criará e gerenciará seus funis de conversação.</p>
+        <p>Crie e gerencie seus funis de conversas automatizadas.</p>
       </section>
 
       <section id="disparos" class="secao">
