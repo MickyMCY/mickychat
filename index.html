@@ -37,45 +37,80 @@
         <div class="qrcode-placeholder">QR Code será exibido aqui para conectar sua conta.</div>
       </section>
 
-     <section id="funis" class="secao ativa">
-  <div class="funil-header">
-    <h1 class="funis-titulo">📈 Funis de Venda</h1>
-    <p class="funis-descricao">
-      Automatize conversas criando rotas inteligentes que são ativadas assim que um cliente entrar em contacto com você.
-    </p>
-    <div class="funis-info-top">
-      <span>Exibindo 1 funil criado</span>
-      <span>Ordenar por:
-        <select class="ordenar">
-          <option>Mais recentes primeiro</option>
-          <option>Mais antigos primeiro</option>
-        </select>
-      </span>
-    </div>
-    <div class="funil-acao">
-      <button class="criar-funil-btn" onclick="abrirCriadorFunil()">➕ Criar Funil</button>
-    </div>
-  </div>
-
-  <div class="funil-lista">
-    <div class="funil-card">
-      <div class="funil-detalhes">
-        <strong>Funil de Boas-Vindas</strong>
-        <span>Status: <span class="ativo">Ativo</span></span>
-      </div>
-      <div class="funil-acoes">
-        <button class="toggle-funil">🔁 Ativar/Desativar</button>
-        <button class="entrar-funil" onclick="entrarNoEditor()">➡️ Editar</button>
-      </div>
-    </div>
-  </div>
-</section>
+      <section id="funis" class="secao">
+        <div class="funil-header">
+          <h1 class="funis-titulo">📈 Funis de Venda</h1>
+          <p class="funis-descricao">
+            Automatize conversas criando rotas inteligentes que são ativadas assim que um cliente entrar em contacto com você.
+          </p>
+          <div class="funis-info-top">
+            <span>Exibindo 1 funil criado</span>
+            <span>Ordenar por:
+              <select class="ordenar">
+                <option>Mais recentes primeiro</option>
+                <option>Mais antigos primeiro</option>
+              </select>
+            </span>
+          </div>
+          <div class="funil-acao">
+            <button class="criar-funil-btn" onclick="abrirCriadorFunil()">➕ Criar Funil</button>
+          </div>
         </div>
-        <div class="funil-controles">
-          <button id="exportar">Exportar</button>
-          <input type="file" id="importar" hidden />
-          <button onclick="document.getElementById('importar').click()">Importar</button>
-          <button id="executar">▶️ Executar</button>
+
+        <div class="funil-lista">
+          <div class="funil-card">
+            <div class="funil-detalhes">
+              <strong>Funil de Boas-Vindas</strong>
+              <span>Status: <span class="ativo">Ativo</span></span>
+            </div>
+            <div class="funil-acoes">
+              <button class="toggle-funil">🔁 Ativar/Desativar</button>
+              <button class="entrar-funil" onclick="entrarNoEditor()">➡️ Editar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="editor-funil" class="secao" style="display: none;">
+        <div class="editor-painel">
+          <div class="editor-esquerda" id="canvas-editor">
+            <div class="bloco-inicio">
+              <label>🔰 Início</label>
+              <select>
+                <option>Qualquer mensagem</option>
+                <option>Interação</option>
+              </select>
+              <select class="tempo">
+                <option>Minutos</option>
+                <option>Horas</option>
+                <option>Dias</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="editor-direita">
+            <h3>🧱 Blocos</h3>
+
+            <div class="categoria">📨 Mensagem</div>
+            <div class="bloco-opcao" draggable="true">📝 Texto</div>
+            <div class="bloco-opcao" draggable="true">🖼 Imagem</div>
+            <div class="bloco-opcao" draggable="true">🎵 Música</div>
+            <div class="bloco-opcao" draggable="true">🎙 Áudio</div>
+            <div class="bloco-opcao" draggable="true">🎥 Vídeo</div>
+            <div class="bloco-opcao" draggable="true">📄 Documento</div>
+
+            <div class="categoria">⚙️ Lógica</div>
+            <div class="bloco-opcao" draggable="true">🧭 Caminhos</div>
+            <div class="bloco-opcao" draggable="true">⏳ Espera</div>
+
+            <div class="categoria">❓ Interação</div>
+            <div class="bloco-opcao" draggable="true">🙋 Pergunta</div>
+            <div class="bloco-opcao" draggable="true">🏷 Tags</div>
+
+            <div class="categoria">🧠 Avançado</div>
+            <div class="bloco-opcao pago" draggable="false" onclick="alert('Disponível apenas para contas premium!')">🤖 Funil com IA</div>
+            <div class="bloco-opcao" draggable="true">🧬 Variáveis</div>
+          </div>
         </div>
       </section>
 
