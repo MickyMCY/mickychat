@@ -11,9 +11,9 @@ document.querySelectorAll('.sidebar nav ul li').forEach((item) => {
 
 function gerarQRCode() {
   const mensagem = document.getElementById('mensagem-qrcode');
-  mensagem.innerHTML = "⏳ Preparando conexão… Pode levar até 1 minuto. Se não aparecer, recarregue a página.";
+  mensagem.innerHTML = "🔄 Gerando código QR, aguarde até 1 minuto. Se não aparecer, recarregue a página.";
   setTimeout(() => {
-    mensagem.innerHTML += "<br><strong>✅ QR-Code gerado com sucesso!</strong>";
+    mensagem.innerHTML = "✅ QR-Code pronto! Agora conecte seu WhatsApp.";
     const status = document.getElementById("status-indicador");
     status.classList.remove("desconectado");
     status.classList.add("conectado");
@@ -33,12 +33,13 @@ function atualizarCodigo() {
 }
 
 function conectarPorNumero() {
-  const numero = document.getElementById("numero-wpp").value;
+  const numero = document.getElementById("numero-wpp").value.trim();
   const codigo = document.getElementById("pais-select").value;
   const status = document.getElementById("status-indicador");
+  const mensagem = document.getElementById('mensagem-qrcode');
 
   if (!numero) {
-    alert("Digite o número do WhatsApp.");
+    alert("Por favor, digite seu número de WhatsApp.");
     return;
   }
 
@@ -46,8 +47,7 @@ function conectarPorNumero() {
   status.classList.add("conectado");
   status.textContent = "Conectado";
 
-  document.getElementById("mensagem-qrcode").innerHTML =
-    `<span style="color:green;">✅ Conectado via número ${codigo}${numero}</span>`;
+  mensagem.innerHTML = `<span style="color: green;">✅ Conectado via número ${codigo}${numero}</span>`;
 }
 
 function respostaSuporte(tipo) {
