@@ -9,29 +9,32 @@
 <body>
   <div class="container">
     <aside class="sidebar">
-      <div class="logo">🧠 TelepreservarChat</div>
+      <div class="logo">💠 <strong>MickyChat</strong></div>
       <nav>
         <ul>
           <li class="ativo" data-section="metricas">📊 Métricas</li>
           <li data-section="conexao">🔌 Conexão</li>
           <li data-section="funis">🧩 Funis</li>
           <li data-section="disparos">🚀 Disparos</li>
+          <li data-section="suporte">💬 Suporte</li>
+          <li data-section="extensao">🧷 Extensão Web</li>
+          <li data-section="sair">🚪 Sair</li>
         </ul>
       </nav>
       <div class="whatsapp-help">
-        <a href="https://wa.me/SEUNUMERO" target="_blank">💬 Precisa de ajuda?</a>
+        <a href="https://wa.me/SEUNUMERO" target="_blank">❓ Ajuda via WhatsApp</a>
       </div>
     </aside>
 
     <main class="conteudo">
       <section id="metricas" class="secao ativa">
         <h2>📊 Métricas</h2>
-        <p>Resumo das métricas aparecerá aqui futuramente.</p>
+        <p>Resumo do sistema e estatísticas futuras aparecerão aqui.</p>
       </section>
 
       <section id="conexao" class="secao">
         <h2>🔌 Conexão com WhatsApp</h2>
-        <div class="qrcode-placeholder">QR Code de conexão será exibido aqui.</div>
+        <div class="qrcode-placeholder">QR Code será exibido aqui para conectar sua conta.</div>
       </section>
 
       <section id="funis" class="secao">
@@ -56,7 +59,32 @@
 
       <section id="disparos" class="secao">
         <h2>🚀 Disparos</h2>
-        <p>Lista de disparos e controle aparecerão aqui.</p>
+        <p>Controle de conversas ativas, envio e pausa manual aparecerão aqui.</p>
+      </section>
+
+      <section id="suporte" class="secao">
+        <h2>💬 Suporte Automático</h2>
+        <p>Escolha abaixo uma dúvida ou problema:</p>
+        <div class="suporte-perguntas">
+          <button onclick="respostaSuporte('pagamento')">💳 Como efectuar o pagamento?</button>
+          <button onclick="respostaSuporte('teste')">🎁 Como funciona o teste grátis?</button>
+          <button onclick="respostaSuporte('erro')">❌ Fiz pagamento e não desbloqueou</button>
+          <button onclick="respostaSuporte('humano')">👨 Quero falar com um humano</button>
+          <button onclick="respostaSuporte('sugestao')">📨 Quero dar sugestão ou reclamar</button>
+        </div>
+        <div id="resposta-suporte" class="suporte-resposta"></div>
+      </section>
+
+      <section id="extensao" class="secao">
+        <h2>🧷 Extensão Web - MChat Helper</h2>
+        <p>Clique abaixo para baixar a extensão que facilita a automação no seu navegador.</p>
+        <button onclick="baixarExtensao()">⬇️ Baixar Extensão (.zip)</button>
+      </section>
+
+      <section id="sair" class="secao">
+        <h2>🚪 Sair</h2>
+        <p>Você saiu do sistema com sucesso.</p>
+        <button onclick="window.location.reload()">🔁 Recarregar</button>
       </section>
     </main>
   </div>
