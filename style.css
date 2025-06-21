@@ -96,7 +96,7 @@ body {
   display: block;
 }
 
-/* Título seção Conexão */
+/* Títulos */
 .titulo-principal {
   font-weight: 800;
   font-size: 2.4rem;
@@ -104,7 +104,6 @@ body {
   color: #eee;
 }
 
-/* Subtítulo */
 .subtitulo {
   font-weight: 600;
   font-size: 1.05rem;
@@ -112,81 +111,174 @@ body {
   color: #bbb;
 }
 
-/* BOX principal conexão */
-.conexao-box {
+/* Caixa grande da seção conexão */
+.conexao-box-grande {
   background: linear-gradient(135deg, #18222e, #0f161f);
-  border-radius: 20px;
-  padding: 30px 30px 40px;
-  max-width: 460px;
-  box-shadow: 0 10px 30px rgba(0, 194, 255, 0.15);
+  border-radius: 24px;
+  padding: 40px 40px 50px;
+  max-width: 560px;
+  box-shadow: 0 15px 40px rgba(0, 194, 255, 0.18);
   color: #ccc;
   user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 /* Linha status */
-.status-linha {
+.linha-status {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 20px;
 }
 
-/* Label status */
+/* Label do status */
 .label-status {
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #ddd;
+  min-width: 70px;
 }
 
 /* Tag status */
 .status-tag {
   font-weight: 700;
-  font-size: 1rem;
-  padding: 6px 18px;
-  border-radius: 24px;
+  font-size: 1.1rem;
+  padding: 10px 24px;
+  border-radius: 28px;
   color: white;
   user-select: none;
-  min-width: 120px;
+  min-width: 140px;
   text-align: center;
-  box-shadow: 0 0 5px rgba(0,0,0,0.4);
+  box-shadow: 0 0 12px rgba(0,0,0,0.6);
+  transition: background-color 0.3s ease;
 }
 
-/* Estados do status */
 .status-tag.desconectado {
   background-color: #b63232;
-  box-shadow: 0 0 15px #b63232;
+  box-shadow: 0 0 20px #b63232;
 }
 
 .status-tag.conectado {
   background-color: #2eb82e;
-  box-shadow: 0 0 15px #2eb82e;
+  box-shadow: 0 0 20px #2eb82e;
 }
 
-/* Botão conectar grande */
-.btn-conectar {
-  display: block;
-  margin: 0 auto 20px auto;
-  padding: 12px 28px;
+/* Botões principais */
+.btn-acao {
   background-color: #00c2ff;
   color: #0b1220;
   border: none;
-  border-radius: 18px;
+  border-radius: 26px;
+  padding: 16px 36px;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  box-shadow: 0 6px 14px #00c2ffaa;
+  box-shadow: 0 8px 20px #00c2ffaa;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  align-self: start;
+  width: fit-content;
+}
+
+.btn-acao:hover {
+  background-color: #0096cc;
+}
+
+/* Painel QR Code e conectar número - ocultos inicialmente */
+.painel-qr,
+.painel-numero {
+  margin-top: 24px;
+  background: linear-gradient(135deg, #0d1722, #182532);
+  border-radius: 20px;
+  padding: 28px 28px 36px;
+  box-shadow: inset 0 0 12px #0a1a2f;
+  color: #ccc;
+  max-width: 520px;
+}
+
+/* Oculto */
+.oculto {
+  display: none !important;
+}
+
+/* Mensagem de processo (QR) */
+.mensagem-processo {
+  font-weight: 700;
+  color: #5ec85e;
+  margin-bottom: 18px;
+  font-size: 1.1rem;
+}
+
+/* Container do QR Code */
+.qrcode-box {
+  width: 240px;
+  height: 240px;
+  background: white;
+  border-radius: 16px;
+  margin: 0 auto;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+
+/* Painel conectar via número - labels e inputs */
+.painel-numero label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #ccc;
+}
+
+#paisSelect {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  background-color: #0a1624;
+  color: #eee;
+  cursor: pointer;
+  box-shadow: inset 0 0 6px #002244;
+  user-select: none;
+}
+
+#numeroInput {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.1rem;
+  margin-top: 6px;
+  background-color: #0a1624;
+  color: #eee;
+  box-shadow: inset 0 0 6px #002244;
+}
+
+/* Botão conectar número */
+.btn-conectar-numero {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #00c2ff;
+  color: #0b1220;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border-radius: 26px;
+  padding: 14px 0;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px #00c2ffaa;
   transition: background-color 0.3s ease;
   user-select: none;
 }
 
-.btn-conectar:hover {
+.btn-conectar-numero:hover {
   background-color: #0096cc;
 }
 
-/* Painel conectar número */
-.painel-conectar-numero {
-  background: linear-gradient(135deg, #0d1722, #182532);
-  border-radius: 16px;
-  padding: 20px 24px;
-  margin-top: 10px;
-  box-shadow: inset 0 0 12px #
+/* Mensagem abaixo do conectar número */
+.mensagem-numero {
+  margin-top: 12px;
+  font-weight: 600;
+  color: #76c776;
+  min-height: 22px;
+  user-select: none;
+}
