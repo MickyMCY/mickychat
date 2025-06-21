@@ -1,115 +1,93 @@
-/* FUNIS CARD NOVO ESTILO */
-.funil-card {
-  background: #151d27;
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-
-.funil-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.funil-nome {
-  font-size: 1.2rem;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #111822;
+  color: #eee;
   font-weight: 600;
-  color: #fff;
+  overflow-x: hidden;
 }
 
-.funil-status {
+.container {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  min-height: 100vh;
 }
 
-.status-text {
-  font-weight: bold;
-  color: #00FF88;
+.sidebar {
+  width: 240px;
+  background-color: #0b1220;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 999;
 }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 28px;
+.sidebar nav ul {
+  padding-top: 90px;
+  margin: 0;
+  list-style: none;
 }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+.sidebar nav ul li {
+  padding: 16px 20px;
+  cursor: pointer;
+  color: #ccc;
+  font-weight: 600;
 }
 
-.slider {
+.sidebar nav ul li:hover,
+.sidebar nav ul li.ativo {
+  background-color: #1c2533;
+  color: #00C2FF;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 18px 20px;
+  border-bottom: 1px solid #2f3a4a;
+  color: #00C2FF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  background-color: #0b1220;
+  z-index: 1000;
+}
+
+.whatsapp-help {
   position: absolute;
-  cursor: pointer;
-  top: 4px;
-  left: 4px;
-  right: 4px;
-  bottom: 4px;
-  background-color: #ccc;
-  transition: .4s;
-  border-radius: 10px;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 4px;
-  bottom: 3px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
+.whatsapp-help a {
+  color: #00C2FF;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-input:checked + .slider {
-  background-color: #00FF88;
+.conteudo {
+  margin-left: 240px;
+  padding: 40px;
+  flex: 1;
+  background-color: #111822;
+  overflow-y: auto;
 }
 
-input:checked + .slider:before {
-  transform: translateX(22px);
+.secao {
+  display: none;
 }
 
-.funil-controles {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+.secao.ativa {
+  display: block;
 }
 
-.btn-editar {
-  background-color: #00C2FF;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 50%;
-  color: #0D1117;
-  font-size: 20px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.btn-editar:hover {
-  background-color: #009ecf;
-}
-
-.btn-mais {
-  background: transparent;
-  color: white;
-  font-size: 28px;
-  border: none;
-  cursor: pointer;
-  user-select: none;
-  padding: 0 8px;
-  line-height: 1;
-}
-
+/* Funis */
 .funis-titulo {
   font-weight: 700;
   font-size: 2rem;
@@ -118,7 +96,7 @@ input:checked + .slider:before {
 }
 
 .funis-descricao {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
   margin-bottom: 14px;
   color: #bbb;
@@ -161,51 +139,19 @@ input:checked + .slider:before {
   background-color: #009ecf;
 }
 
-/* Ajustes para o menu lateral e logo */
-
-.sidebar nav ul {
-  padding-top: 40px; /* deixa as opções mais para cima, com espaço para logo fixa */
-  margin: 0;
-  list-style: none;
+/* Caixinhas de Funis */
+.funil-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
 }
 
-.logo {
-  font-weight: 700;
-  font-size: 1.5rem;
-  padding: 18px 20px 12px 20px;
-  border-bottom: 1px solid #2f3a4a;
-  color: #00C2FF;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 240px;
-  background-color: #0b1220;
-  z-index: 1000;
-}
-
-/* Ajustar para o container principal */
-.container {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 240px;
-  background-color: #0b1220;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  overflow-y: auto;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.7);
-  z-index: 999;
-}
-
-.conteudo {
-  margin-left: 240px;
-  padding: 30px 40px 40px 40px;
-  background-color: #111822;
-  flex: 1;
-  overflow-y: auto;
-  min-height: 100vh;
+.sem-funis {
+  background-color: #1a2433;
+  padding: 30px;
+  text-align: center;
+  border-radius: 10px;
+  color: #aaa;
+  font-style: italic;
 }
