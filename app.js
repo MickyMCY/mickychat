@@ -1,97 +1,102 @@
-// app.js - Script principal do painel MickyChat
-
-// Controla a navegação entre seções do menu lateral
-document.querySelectorAll('.sidebar nav ul li').forEach(item => {
+// Alterna seções ao clicar no menu
+document.querySelectorAll('.sidebar li').forEach(item => {
   item.addEventListener('click', () => {
-    // Remove classe ativa do menu e das seções
-    document.querySelectorAll('.sidebar nav ul li').forEach(i => i.classList.remove('ativo'));
-    document.querySelectorAll('main.conteudo .secao').forEach(sec => sec.classList.remove('ativa'));
-
-    // Adiciona classe ativa no item clicado
+    document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('ativo'));
     item.classList.add('ativo');
 
-    // Mostra a seção correspondente
-    const secao = document.getElementById(item.dataset.section);
-    if (secao) secao.classList.add('ativa');
+    const secaoId = item.getAttribute('data-section');
+    document.querySelectorAll('.secao').forEach(sec => sec.classList.remove('ativa'));
+    document.getElementById(secaoId).classList.add('ativa');
   });
 });
 
-// Simula a geração do QR Code para conectar o WhatsApp
-function gerarQRCode() {
-  const mensagem = document.getElementById('mensagem-qrcode');
-  mensagem.innerHTML = "🔄 A gerar o código QR, aguarde até 1 minuto. Se não aparecer, recarregue a página.";
+// Criar novo funil visualmente
+function criarNovoFunil() {
+  const funilArea = document.getElementById('lista-funis');
+  const novo = document.createElement('div');
+  novo.className = 'funil-card';
 
-  // Simula atraso para gerar QR
+  const nome = document.createElement('div');
+  nome.className = 'funil-nome';
+  nome.textContent = 'Funil Sem Nome';
+
+  const status = document.createElement('div');
+  status.className = 'funil-status';
+  status.textContent = 'Status: Ativo';
+
+  const switchBox = document.createElement('div');
+  switchBox.className = 'switch-vertical active';
+  const knob = document.createElement('div');
+  knob.className = 'switch-knob';
+  switchBox.appendChild(knob);
+
+  switchBox.onclick = () => {
+    switchBox.classList.toggle('active');
+    status.textContent = 'Status: ' + (switchBox.classList.contains('active') ? 'Ativo' : 'Inativo');
+  };
+
+  const btnEditar = document.createElement('button');
+  btnEditar.className = 'btn-editar';
+  btnEditar.innerHTML = '➡️';
+  btnEditar.onclick = () => alert('Abrir editor de funil real.');
+
+  const btnMenu = document.createElement('button');
+  btnMenu.className = 'btn-menu';
+  btnMenu.textContent = '⋮';
+
+  const acoes = document.createElement('div');
+  acoes.className = 'funil-acoes';
+  acoes.appendChild(btnEditar);
+  acoes.appendChild(btnMenu);
+
+  novo.appendChild(nome);
+  novo.appendChild(status);
+  novo.appendChild(switchBox);
+  novo.appendChild(acoes);
+
+  funilArea.appendChild(novo);
+
+  atualizarContadorFunis();
+}
+
+function atualizarContadorFunis() {
+  const count = document.querySelectorAll('#lista-funis .funil-card').length;
+  document.getElementById('contador-funis').textContent = count;
+}
+
+// Simula respostas de suporte
+function respostaSuporte(tipo) {
+  const respostas = {
+    pagamento: 'Para efectuar o pagamento, clique no botão de compra e siga as instruções.',
+    teste: 'O teste grátis dura 7 dias e permite explorar as funções básicas.',
+    erro: 'Se já pagou e não desbloqueou, envie comprovativo no WhatsApp.',
+    humano: 'Nossa equipa irá atendê-lo em breve via WhatsApp.',
+    sugestao: 'Obrigado! Envie sua sugestão no WhatsApp e será analisada.'
+  };
+
+  document.getElementById('resposta-suporte').textContent = respostas[tipo] || 'Opção desconhecida.';
+}
+
+// Simula geração de QR-Code
+function gerarQRCode() {
+  const msg = document.getElementById('mensagem-qrcode');
+  const qrArea = document.getElementById('qrcode-area');
+
+  msg.style.display = 'block';
+  qrArea.style.display = 'none';
+
   setTimeout(() => {
-    mensagem.innerHTML = "✅ Código QR gerado! Agora conecte seu WhatsApp.";
-    const status = document.getElementById("status-indicador");
-    status.classList.remove("desconectado");
-    status.classList.add("conectado");
-    status.textContent = "Conectado";
+    msg.style.display = 'none';
+    qrArea.style.display = 'block';
   }, 3000);
 }
 
-// Exibe a caixa para conexão via número
-function mostrarNumero() {
-  const box = document.getElementById("conectar-por-numero");
-  box.style.display = "block";
+// Simula conexão via número (pode ser expandido para API real)
+function abrirConexaoNumero() {
+  alert('Caixa de entrada para inserir número e conectar será exibida aqui futuramente.');
 }
 
-// Atualiza o código do país selecionado no dropdown com emoji e código
-function atualizarCodigo() {
-  const select = document.getElementById("pais-select");
-  const codigo = document.getElementById("codigo-pais");
-  codigo.textContent = select.value;
-}
-
-// Simula conexão via número de telefone
-function conectarPorNumero() {
-  const numero = document.getElementById("numero-wpp").value.trim();
-  const codigo = document.getElementById("pais-select").value;
-  const status = document.getElementById("status-indicador");
-  const mensagem = document.getElementById('mensagem-qrcode');
-
-  if (!numero) {
-    alert("Por favor, digite seu número de WhatsApp.");
-    return;
-  }
-
-  // Atualiza status e mensagem
-  status.classList.remove("desconectado");
-  status.classList.add("conectado");
-  status.textContent = "Conectado";
-
-  mensagem.innerHTML = `<span style="color: green;">✅ Conectado via número ${codigo}${numero}</span>`;
-
-  // Opcional: esconder a caixa de número após conexão
-  document.getElementById("conectar-por-numero").style.display = "none";
-}
-
-// Respostas automáticas para dúvidas no suporte
-function respostaSuporte(tipo) {
-  const respostas = {
-    pagamento: "Você pode efectuar o pagamento via Mpesa, Emola ou conta bancária.",
-    teste: "Oferecemos 7 dias de teste grátis para novos usuários.",
-    erro: "Se fez o pagamento e não desbloqueou, envie o comprovativo pelo WhatsApp.",
-    humano: "Um de nossos atendentes entrará em contacto com você em breve.",
-    sugestao: "Agradecemos sua sugestão. Estamos sempre melhorando!"
-  };
-  document.getElementById('resposta-suporte').innerText = respostas[tipo] || '';
-}
-
-// Simula o download da extensão (apenas link estático)
+// Simula download da extensão
 function baixarExtensao() {
-  window.open('extensao.zip', '_blank');
-}
-
-// Opcional: função para desconectar WhatsApp (pode ser expandida para logout real)
-function desconectar() {
-  const status = document.getElementById("status-indicador");
-  const mensagem = document.getElementById('mensagem-qrcode');
-
-  status.classList.remove("conectado");
-  status.classList.add("desconectado");
-  status.textContent = "Desconectado";
-
-  mensagem.innerHTML = "Você desconectou sua conta WhatsApp.";
+  alert('Iniciando download da extensão...');
 }
