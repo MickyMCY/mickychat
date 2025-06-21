@@ -32,33 +32,51 @@
         <p>Resumo do sistema e estatísticas futuras aparecerão aqui.</p>
       </section>
 
+      <!-- Seção Conexão reformulada -->
       <section id="conexao" class="secao">
-        <h2>🔌 Conexão com WhatsApp</h2>
-        <p>Conecte e verifique sua conexão com o WhatsApp</p>
+        <h2 class="titulo-principal">Conexão</h2>
+        <p class="subtitulo">
+          Conecte seu WhatsApp e verifique seu status de conexão para começar a usar.
+        </p>
 
-        <div class="status-conexao" id="statusConexao">🔴 Desconectado</div>
+        <div class="conexao-box">
+          <div class="status-linha">
+            <span class="label-status">Status:</span>
+            <span id="statusConexao" class="status-tag desconectado">Desconectado</span>
+          </div>
 
-        <div class="conectar-box">
-          <button id="btnConectar" onclick="iniciarConexao()">Conectar um número</button>
-        </div>
+          <button id="btnConectar" class="btn-conectar" onclick="mostrarPainelQR()">
+            Conectar um número
+          </button>
 
-        <div id="mensagemProcesso" class="mensagem-processo"></div>
-        <div id="qrcodeContainer" class="qrcode-box"></div>
+          <div id="painelConectarNumero" class="painel-conectar-numero oculto">
+            <div class="conectar-numero-box">
+              <select id="paisSelect" aria-label="Selecionar país">
+                <option value="+258" selected>🇲🇿 Moçambique (+258)</option>
+                <option value="+55">🇧🇷 Brasil (+55)</option>
+                <option value="+244">🇦🇴 Angola (+244)</option>
+                <option value="+351">🇵🇹 Portugal (+351)</option>
+                <option value="+33">🇫🇷 França (+33)</option>
+                <!-- Mais países podem ser adicionados aqui -->
+              </select>
 
-        <hr style="margin: 40px 0;" />
+              <input
+                type="tel"
+                id="numeroInput"
+                placeholder="Digite o número sem código"
+                aria-label="Número de telefone"
+              />
 
-        <h3>📱 Conectar com número</h3>
-        <div class="conectar-numero">
-          <select id="paisSelect">
-            <option value="+258" selected>🇲🇿 Moçambique (+258)</option>
-            <option value="+55">🇧🇷 Brasil (+55)</option>
-            <option value="+244">🇦🇴 Angola (+244)</option>
-            <option value="+351">🇵🇹 Portugal (+351)</option>
-            <option value="+33">🇫🇷 França (+33)</option>
-            <!-- Adicione mais conforme necessário -->
-          </select>
-          <input type="tel" id="numeroInput" placeholder="Digite o número" />
-          <button onclick="enviarNumero()">Conectar via Número</button>
+              <button class="btn-conectar-numero" onclick="conectarViaNumero()">
+                Conectar via Número
+              </button>
+            </div>
+          </div>
+
+          <div id="painelQR" class="painel-qr oculto">
+            <div id="mensagemProcesso" class="mensagem-processo">Aguardando início da conexão...</div>
+            <div id="qrcodeContainer" class="qrcode-box"></div>
+          </div>
         </div>
       </section>
 
