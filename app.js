@@ -27,7 +27,7 @@ let conectado = false; // Estado simulado
 function mostrarPainelQR() {
   painelQR.classList.remove('oculto');
   painelNumero.classList.add('oculto');
-  mensagemProcesso.textContent = 'Gerando QR-Code... Aguarde por favor.';
+  mensagemProcesso.textContent = 'Preparando conexão, aguarde...';
   qrcodeContainer.innerHTML = ''; // limpa QR anterior
   mensagemNumero.textContent = '';
   gerarQRCodeSimulado();
@@ -44,12 +44,10 @@ function mostrarPainelNumero() {
 
 // Simula geração do QR Code e conexão
 function gerarQRCodeSimulado() {
-  // Simulação: após 3 segundos "conectado"
+  // Simulação: após 1.5 segundos "QR code" aparece
   setTimeout(() => {
-    // Limpa qrcodeContainer e coloca texto simulando QR Code
     qrcodeContainer.innerHTML = '<div style="width: 240px; height: 240px; background: linear-gradient(45deg, #00c2ff, #006699); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #003344; font-weight: 700; font-size: 1.1rem;">QR Code Aqui</div>';
-
-    mensagemProcesso.textContent = 'QR-Code gerado. Escaneie com seu WhatsApp.';
+    mensagemProcesso.textContent = 'QR Code gerado. Escaneie com seu WhatsApp.';
   }, 1500);
 
   // Simula conexão após 12 segundos
