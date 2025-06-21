@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editor de Funil - MickyChat</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/jsplumb.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     body {
       margin: 0;
@@ -39,25 +35,28 @@
     .editor-container {
       display: flex;
       height: calc(100vh - 60px);
+      overflow: hidden;
     }
 
     .editor-sidebar {
-      width: 240px;
+      width: 260px;
       background-color: #1e293b;
       padding: 20px;
       overflow-y: auto;
-
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
     }
 
     .editor-sidebar h3 {
-      grid-column: 1 / -1; /* Ocupa as duas colunas */
       margin-bottom: 12px;
     }
 
+    .bloco-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
     .bloco {
+      flex: 1 1 calc(50% - 6px);
       padding: 12px;
       background-color: #334155;
       border-radius: 6px;
@@ -73,7 +72,25 @@
       border: 2px dashed #475569;
       border-radius: 10px;
       margin: 15px;
-      overflow: scroll;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .canvas-scroll-container {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      cursor: grab;
+    }
+
+    .canvas-scroll-area {
+      width: 10000px;
+      height: 6000px;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
 
     .editor-bloco {
@@ -106,8 +123,7 @@
       width: 320px;
     }
 
-    .conector-topo,
-    .conector-lateral {
+    .conector-topo, .conector-lateral {
       width: 14px;
       height: 14px;
       border-radius: 50%;
@@ -133,112 +149,148 @@
 <body>
   <div class="editor-topbar">
     <button onclick="history.back()">⬅ Voltar</button>
-    <span
-      >🧠 Editor de Funil:
-      <strong id="nome-do-funil">Funil sem título</strong></span
-    >
+    <span>🧠 Editor de Funil: <strong id="nome-do-funil">Funil sem título</strong></span>
     <button onclick="salvarEditor()">💾 Salvar</button>
   </div>
 
   <div class="editor-container">
     <aside class="editor-sidebar">
       <h3>Mensagens</h3>
-      <div class="bloco" draggable="true" data-tipo="texto">📝 Texto</div>
-      <div class="bloco" draggable="true" data-tipo="imagem">🖼 Imagem</div>
-      <div class="bloco" draggable="true" data-tipo="musica">🎵 Música</div>
-      <div class="bloco" draggable="true" data-tipo="audio">🎤 Áudio</div>
-      <div class="bloco" draggable="true" data-tipo="video">🎥 Video</div>
-      <div class="bloco" draggable="true" data-tipo="documento">📄 Documento</div>
-
+      <div class="bloco-container">
+        <div class="bloco" draggable="true" data-tipo="texto">📝 Texto</div>
+        <div class="bloco" draggable="true" data-tipo="imagem">🖼 Imagem</div>
+        <div class="bloco" draggable="true" data-tipo="musica">🎵 Música</div>
+        <div class="bloco" draggable="true" data-tipo="audio">🎤 Áudio</div>
+        <div class="bloco" draggable="true" data-tipo="video">🎥 Video</div>
+        <div class="bloco" draggable="true" data-tipo="documento">📄 Documento</div>
+      </div>
       <h3>Lógica</h3>
-      <div class="bloco" draggable="true" data-tipo="caminhos">🔀 Caminhos</div>
-      <div class="bloco" draggable="true" data-tipo="esperar">⏱️ Esperar</div>
-      <div class="bloco" draggable="true" data-tipo="perguntar">❓ Perguntar</div>
-      <div class="bloco" draggable="true" data-tipo="tags">🏷️ Tags</div>
-      <div class="bloco" draggable="true" data-tipo="variaveis">📦 Variáveis</div>
-      <div
-        class="bloco"
-        draggable="true"
-        data-tipo="funilIA"
-        style="background-color: #facc15; color: #000"
-      >
-        🤖 Funil com IA <span style="font-size: 0.8em">Novo</span>
+      <div class="bloco-container">
+        <div class="bloco" draggable="true" data-tipo="caminhos">🔀 Caminhos</div>
+        <div class="bloco" draggable="true" data-tipo="esperar">⏱️ Esperar</div>
+        <div class="bloco" draggable="true" data-tipo="perguntar">❓ Perguntar</div>
+        <div class="bloco" draggable="true" data-tipo="tags">🏷️ Tags</div>
+        <div class="bloco" draggable="true" data-tipo="variaveis">📦 Variáveis</div>
+        <div class="bloco" draggable="true" data-tipo="funilIA" style="background-color:#facc15; color:#000;">🤖 Funil com IA <span style="font-size:0.8em">Novo</span></div>
       </div>
     </aside>
 
-    <div id="canvas-editor" class="editor-canvas">
-      <div class="inicio-box">
-        <div class="conector-topo"></div>
-        <label for="tempo">Tempo mínimo:</label>
-        <div style="display: flex; gap: 10px;">
-          <input
-            type="number"
-            id="tempo"
-            class="dropdown"
-            placeholder="10"
-            style="flex: 1"
-          />
-          <select class="dropdown" style="width: 100px;">
-            <option>Minuto</option>
-            <option>Hora</option>
-            <option>Dia</option>
-          </select>
+    <div class="editor-canvas">
+      <div class="canvas-scroll-container" id="canvas-scroll-container">
+        <div id="canvas-editor" class="canvas-scroll-area">
+          <div class="inicio-box">
+            <div class="conector-topo"></div>
+            <label for="tempo">Tempo mínimo:</label>
+            <div style="display: flex; gap: 10px;">
+              <input type="number" id="tempo" class="dropdown" placeholder="10" style="flex:1;">
+              <select class="dropdown" style="width: 100px;">
+                <option>Minuto</option>
+                <option>Hora</option>
+                <option>Dia</option>
+              </select>
+            </div>
+            <label for="condicao">Condição:</label>
+            <select id="condicao" class="dropdown">
+              <option>Qualquer mensagem</option>
+              <option>Interação</option>
+              <option>Resposta a botão</option>
+              <option>Mensagem específica</option>
+            </select>
+            <div class="conector-lateral"></div>
+          </div>
         </div>
-        <label for="condicao">Condição:</label>
-        <select id="condicao" class="dropdown">
-          <option>Qualquer mensagem</option>
-          <option>Interação</option>
-          <option>Resposta a botão</option>
-          <option>Mensagem específica</option>
-        </select>
-        <div class="conector-lateral"></div>
       </div>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/jsplumb.min.js"></script>
   <script>
-    let canvas = document.getElementById('canvas-editor');
+    let canvas = document.getElementById("canvas-editor");
     let blocoCount = 0;
     let jsPlumbInstance;
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener("DOMContentLoaded", function () {
       jsPlumbInstance = jsPlumb.getInstance();
 
-      document.querySelectorAll('.bloco').forEach((bloco) => {
-        bloco.addEventListener('dragstart', (e) => {
-          e.dataTransfer.setData('tipo', bloco.getAttribute('data-tipo'));
+      document.querySelectorAll(".bloco").forEach(bloco => {
+        bloco.addEventListener("dragstart", e => {
+          e.dataTransfer.setData("tipo", bloco.getAttribute("data-tipo"));
         });
       });
 
-      canvas.addEventListener('dragover', (e) => e.preventDefault());
+      canvas.addEventListener("dragover", e => e.preventDefault());
 
-      canvas.addEventListener('drop', (e) => {
+      canvas.addEventListener("drop", e => {
         e.preventDefault();
-        const tipo = e.dataTransfer.getData('tipo');
-        const novo = document.createElement('div');
-        novo.className = 'editor-bloco';
+        const tipo = e.dataTransfer.getData("tipo");
+        const novo = document.createElement("div");
+        novo.className = "editor-bloco";
         novo.style.top = `${e.offsetY}px`;
         novo.style.left = `${e.offsetX}px`;
-        novo.id = 'bloco-' + blocoCount++;
+        novo.id = "bloco-" + blocoCount++;
         novo.innerHTML = `<strong>${tipo.toUpperCase()}</strong><br><small>ID: ${novo.id}</small>`;
 
-        const conectorEntrada = document.createElement('div');
-        conectorEntrada.className = 'conector-topo';
+        const conectorEntrada = document.createElement("div");
+        conectorEntrada.className = "conector-topo";
         novo.appendChild(conectorEntrada);
 
-        const conectorSaida = document.createElement('div');
-        conectorSaida.className = 'conector-lateral';
+        const conectorSaida = document.createElement("div");
+        conectorSaida.className = "conector-lateral";
         novo.appendChild(conectorSaida);
 
         canvas.appendChild(novo);
         jsPlumbInstance.draggable(novo);
-        jsPlumbInstance.makeSource(conectorSaida, { anchor: 'Right', connector: ['Flowchart'] });
-        jsPlumbInstance.makeTarget(conectorEntrada, { anchor: 'Top' });
+        jsPlumbInstance.makeSource(conectorSaida, { anchor: "Right", connector: ["Flowchart"] });
+        jsPlumbInstance.makeTarget(conectorEntrada, { anchor: "Top" });
       });
+
+      const scrollContainer = document.getElementById("canvas-scroll-container");
+      let isDragging = false;
+      let startX, startY, scrollLeft, scrollTop;
+
+      scrollContainer.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        scrollContainer.style.cursor = "grabbing";
+        startX = e.pageX - scrollContainer.offsetLeft;
+        startY = e.pageY - scrollContainer.offsetTop;
+        scrollLeft = scrollContainer.scrollLeft;
+        scrollTop = scrollContainer.scrollTop;
+      });
+
+      scrollContainer.addEventListener("mouseleave", () => {
+        isDragging = false;
+        scrollContainer.style.cursor = "grab";
+      });
+
+      scrollContainer.addEventListener("mouseup", () => {
+        isDragging = false;
+        scrollContainer.style.cursor = "grab";
+      });
+
+      scrollContainer.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - scrollContainer.offsetLeft;
+        const y = e.pageY - scrollContainer.offsetTop;
+        const walkX = x - startX;
+        const walkY = y - startY;
+        scrollContainer.scrollLeft = scrollLeft - walkX;
+        scrollContainer.scrollTop = scrollTop - walkY;
+      });
+
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      if (id !== null) {
+        const funis = JSON.parse(localStorage.getItem("funis")) || [];
+        const funil = funis[parseInt(id)];
+        if (funil) {
+          document.getElementById("nome-do-funil").textContent = funil.nome;
+        }
+      }
     });
 
     function salvarEditor() {
-      alert('(Futuro) Salvar fluxograma visual do funil.');
+      alert("(Futuro) Salvar fluxograma visual do funil.");
     }
   </script>
 </body>
