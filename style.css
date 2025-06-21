@@ -87,7 +87,72 @@ body {
   display: block;
 }
 
-/* Funis */
+/* CONEXÃO */
+.status-conexao {
+  padding: 10px 20px;
+  margin: 10px 0;
+  font-weight: 700;
+  border-radius: 8px;
+  display: inline-block;
+  color: #fff;
+  background-color: #b30000;
+}
+
+.status-conexao.conectado {
+  background-color: #0cb30c;
+}
+
+.conectar-box {
+  margin: 20px 0;
+}
+
+.conectar-box button {
+  padding: 10px 20px;
+  background-color: #00C2FF;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.qrcode-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.mensagem-processo {
+  margin-top: 10px;
+  font-style: italic;
+  color: #bbb;
+}
+
+.conectar-numero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.conectar-numero select,
+.conectar-numero input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #1c2533;
+  color: white;
+}
+
+.conectar-numero button {
+  background-color: #00C2FF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: #0b1220;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* FUNIS */
 .funis-titulo {
   font-weight: 700;
   font-size: 2rem;
@@ -139,7 +204,6 @@ body {
   background-color: #009ecf;
 }
 
-/* Caixinhas de Funis */
 .funil-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
