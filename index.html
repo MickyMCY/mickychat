@@ -37,17 +37,39 @@
         <div class="qrcode-placeholder">QR Code será exibido aqui para conectar sua conta.</div>
       </section>
 
-      <section id="funis" class="secao">
-        <h2>🧩 Criador de Funis</h2>
-        <div class="funil-builder">
-          <aside class="funil-blocos">
-            <h3>Arraste:</h3>
-            <div draggable="true" class="bloco" data-tipo="mensagem">💬 Mensagem</div>
-            <div draggable="true" class="bloco" data-tipo="delay">⏱ Delay</div>
-          </aside>
-          <section class="funil-area" id="funil-area">
-            <p>Monte seu funil aqui.</p>
-          </section>
+     <section id="funis" class="secao ativa">
+  <div class="funil-header">
+    <h1 class="funis-titulo">📈 Funis de Venda</h1>
+    <p class="funis-descricao">
+      Automatize conversas criando rotas inteligentes que são ativadas assim que um cliente entrar em contacto com você.
+    </p>
+    <div class="funis-info-top">
+      <span>Exibindo 1 funil criado</span>
+      <span>Ordenar por:
+        <select class="ordenar">
+          <option>Mais recentes primeiro</option>
+          <option>Mais antigos primeiro</option>
+        </select>
+      </span>
+    </div>
+    <div class="funil-acao">
+      <button class="criar-funil-btn" onclick="abrirCriadorFunil()">➕ Criar Funil</button>
+    </div>
+  </div>
+
+  <div class="funil-lista">
+    <div class="funil-card">
+      <div class="funil-detalhes">
+        <strong>Funil de Boas-Vindas</strong>
+        <span>Status: <span class="ativo">Ativo</span></span>
+      </div>
+      <div class="funil-acoes">
+        <button class="toggle-funil">🔁 Ativar/Desativar</button>
+        <button class="entrar-funil" onclick="entrarNoEditor()">➡️ Editar</button>
+      </div>
+    </div>
+  </div>
+</section>
         </div>
         <div class="funil-controles">
           <button id="exportar">Exportar</button>
