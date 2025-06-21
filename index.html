@@ -44,7 +44,7 @@
             Automatize conversas criando rotas inteligentes que são ativadas assim que um cliente entrar em contacto com você.
           </p>
           <div class="funis-info-top">
-            <span>Exibindo 1 funil criado</span>
+            <span>Exibindo 3 funis criados</span>
             <span>Ordenar por:
               <select class="ordenar">
                 <option>Mais recentes primeiro</option>
@@ -58,16 +58,61 @@
         </div>
 
         <div class="funil-lista">
+
+          <!-- Funil 1 -->
           <div class="funil-card">
-            <div class="funil-detalhes">
-              <strong>Funil de Boas-Vindas</strong>
-              <span>Status: <span class="ativo">Ativo</span></span>
+            <div class="funil-info">
+              <div class="funil-nome">Funil de Boas-Vindas</div>
+              <div class="funil-status">
+                <label class="switch">
+                  <input type="checkbox" checked onchange="toggleStatus(this)">
+                  <span class="slider"></span>
+                </label>
+                <span class="status-text">Ativo</span>
+              </div>
             </div>
-            <div class="funil-acoes">
-              <button class="toggle-funil">🔁 Ativar/Desativar</button>
-              <button class="entrar-funil" onclick="entrarNoEditor()">➡️ Editar</button>
+            <div class="funil-controles">
+              <button class="btn-editar" onclick="entrarNoEditor()">➡️</button>
+              <button class="btn-mais">⋮</button>
             </div>
           </div>
+
+          <!-- Funil 2 -->
+          <div class="funil-card">
+            <div class="funil-info">
+              <div class="funil-nome">Funil Promoção Verão</div>
+              <div class="funil-status">
+                <label class="switch">
+                  <input type="checkbox" onchange="toggleStatus(this)">
+                  <span class="slider"></span>
+                </label>
+                <span class="status-text">Inativo</span>
+              </div>
+            </div>
+            <div class="funil-controles">
+              <button class="btn-editar" onclick="entrarNoEditor()">➡️</button>
+              <button class="btn-mais">⋮</button>
+            </div>
+          </div>
+
+          <!-- Funil 3 -->
+          <div class="funil-card">
+            <div class="funil-info">
+              <div class="funil-nome">Funil Especial Natal</div>
+              <div class="funil-status">
+                <label class="switch">
+                  <input type="checkbox" checked onchange="toggleStatus(this)">
+                  <span class="slider"></span>
+                </label>
+                <span class="status-text">Ativo</span>
+              </div>
+            </div>
+            <div class="funil-controles">
+              <button class="btn-editar" onclick="entrarNoEditor()">➡️</button>
+              <button class="btn-mais">⋮</button>
+            </div>
+          </div>
+
         </div>
       </section>
 
