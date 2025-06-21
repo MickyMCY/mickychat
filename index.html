@@ -69,8 +69,37 @@
       </section>
 
       <section id="funis" class="secao">
-        <h2>🧩 Funis</h2>
-        <p>Crie e gerencie seus funis de conversas automatizadas.</p>
+        <div class="funil-header">
+          <h1 class="funis-titulo">📈 Funis de Venda</h1>
+          <p class="funis-descricao">
+            Automatize conversas criando rotas inteligentes que são ativadas assim que um cliente entrar em contacto com você.
+          </p>
+          <div class="funis-info-top">
+            <span>Exibindo 1 funil criado</span>
+            <span>Ordenar por:
+              <select class="ordenar">
+                <option>Mais recentes primeiro</option>
+                <option>Mais antigos primeiro</option>
+              </select>
+            </span>
+          </div>
+          <div class="funil-acao">
+            <button class="criar-funil-btn" onclick="abrirCriadorFunil()">➕ Criar Funil</button>
+          </div>
+        </div>
+
+        <div class="funil-lista">
+          <div class="funil-card">
+            <div class="funil-detalhes">
+              <strong>Funil de Boas-Vindas</strong>
+              <span>Status: <span class="ativo">Ativo</span></span>
+            </div>
+            <div class="funil-acoes">
+              <button class="toggle-funil">🔁 Ativar/Desativar</button>
+              <button class="entrar-funil" onclick="entrarNoEditor()">➡️ Editar</button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="disparos" class="secao">
