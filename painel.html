@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MickyChat - Painel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">🧠 TelepreservarChat</div>
+      <nav>
+        <ul>
+          <li onclick="mostrarSecao('metricas')">📊 Métricas</li>
+          <li onclick="mostrarSecao('conexao')">🔌 Conexão</li>
+          <li onclick="mostrarSecao('funis')">🧩 Funis</li>
+          <li onclick="mostrarSecao('disparos')">🚀 Disparos</li>
+        </ul>
+      </nav>
+      <div class="whatsapp-help">
+        <a href="https://wa.me/SEUNUMERO" target="_blank">💬 Precisa de ajuda?</a>
+      </div>
+    </aside>
+
+    <main class="conteudo">
+      <section id="metricas" class="secao ativa">
+        <h2>📊 Métricas</h2>
+        <p>Aqui você verá dados importantes do sistema.</p>
+      </section>
+
+      <section id="conexao" class="secao">
+        <h2>🔌 Conexão com WhatsApp</h2>
+        <p>Em breve: Exibir QR Code para conectar seu número.</p>
+      </section>
+
+      <section id="funis" class="secao">
+        <h2>🧩 Criador de Funis</h2>
+        <p>Aqui você poderá criar seus funis arrastando blocos.</p>
+      </section>
+
+      <section id="disparos" class="secao">
+        <h2>🚀 Disparos e Conversas Ativas</h2>
+        <p>Em breve: Controle de mensagens, pausas e histórico.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
