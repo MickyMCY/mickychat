@@ -1,42 +1,73 @@
-// Alterna seções
-document.querySelectorAll('.sidebar li').forEach(item => {
+// Gerenciar navegação entre seções
+document.querySelectorAll('.sidebar nav ul li').forEach(item => {
   item.addEventListener('click', () => {
-    const secao = item.getAttribute('data-section');
-    document.querySelectorAll('.secao').forEach(s => s.classList.remove('ativa'));
-    document.getElementById(secao).classList.add('ativa');
-
-    document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('ativo'));
+    // Remove 'ativo' de todos
+    document.querySelectorAll('.sidebar nav ul li').forEach(i => i.classList.remove('ativo'));
     item.classList.add('ativo');
+
+    // Mostrar a seção correta
+    const secao = item.getAttribute('data-section');
+    document.querySelectorAll('main.conteudo .secao').forEach(sec => {
+      if (sec.id === secao) {
+        sec.style.display = 'block';
+      } else {
+        sec.style.display = 'none';
+      }
+    });
   });
 });
 
-// Abrir editor de funil
-function abrirCriadorFunil() {
-  document.querySelectorAll('.secao').forEach(s => s.classList.remove('ativa'));
-  document.getElementById('editor-funil').classList.add('ativa');
+// Função do interruptor do funil
+function toggleStatus(el) {
+  const texto = el.closest('.funil-status').querySelector('.status-text');
+  texto.textContent = el.checked ? 'Ativo' : 'Inativo';
 }
 
-// Entrar no editor via botão
+// Função para abrir o editor do funil (aqui só alert, depois pode expandir)
 function entrarNoEditor() {
-  abrirCriadorFunil();
+  // Esconde seções e mostra editor
+  document.querySelectorAll('main.conteudo .secao').forEach(sec => sec.style.display = 'none');
+  document.getElementById('editor-funil').style.display = 'flex';
 }
 
-// Suporte automático
-function respostaSuporte(tipo) {
-  const respostas = {
-    pagamento: "Você pode efetuar o pagamento via Mpesa ou Emola. Confirme com nosso suporte.",
-    teste: "O teste grátis dura 7 dias e dá acesso a todas funcionalidades básicas.",
-    erro: "Verifique se enviou o comprovativo correto. Caso o problema continue, fale com suporte.",
-    humano: "Clique no balão do WhatsApp no canto inferior esquerdo para falar com um humano.",
-    sugestao: "Envie sua sugestão ou reclamação diretamente no nosso WhatsApp, ficaremos felizes em ouvir!"
-  };
-  document.getElementById('resposta-suporte').innerText = respostas[tipo] || "Erro inesperado.";
+// Função para abrir o criador de funil (alerta por enquanto)
+function abrirCriadorFunil() {
+  alert('Aqui você abriria o criador de funil.');
 }
 
-// Download extensão
+// Funções do suporte
+const respostasSuporte = {
+  pagamento: 'Para efetuar o pagamento, você pode usar Mpesa ou Emola. Após o pagamento, envie uma mensagem no WhatsApp para confirmar.',
+  teste: 'O teste grátis dura 7 dias. Após isso, você deverá fazer o pagamento para continuar usando o sistema.',
+  erro: 'Se você já efetuou o pagamento e não foi desbloqueado, por favor envie uma mensagem ao suporte para verificarmos.',
+  humano: 'Um atendente humano entrará em contato com você o mais breve possível.',
+  sugestao: 'Agradecemos sua sugestão ou reclamação. Enviaremos para a equipe responsável.'
+};
+
+function respostaSuporte(chave) {
+  const divResposta = document.getElementById('resposta-suporte');
+  divResposta.textContent = respostasSuporte[chave] || 'Resposta não encontrada.';
+}
+
+// Função para baixar extensão (exemplo)
 function baixarExtensao() {
+  // Link fictício - substitua pelo link real do zip
   const link = document.createElement('a');
-  link.href = 'mchat-helper.zip';
+  link.href = 'https://seusite.com/mchat-helper.zip';
   link.download = 'mchat-helper.zip';
+  document.body.appendChild(link);
   link.click();
+  document.body.removeChild(link);
 }
+
+// Botão sair recarrega página para "deslogar"
+document.querySelector('section#sair button').addEventListener('click', () => {
+  window.location.reload();
+});
+
+// Inicializa exibindo só a primeira seção
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('main.conteudo .secao').forEach((sec, i) => {
+    sec.style.display = i === 0 ? 'block' : 'none';
+  });
+});
