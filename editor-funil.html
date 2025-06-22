@@ -36,6 +36,38 @@
       cursor: pointer;
     }
 
+    #nome-funil-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+
+    #nome-do-funil {
+      font-weight: bold;
+      cursor: default;
+    }
+
+    #editar-nome-funil {
+      cursor: pointer;
+      color: #3b82f6;
+      font-size: 1.1em;
+      transition: color 0.3s ease;
+    }
+    #editar-nome-funil:hover {
+      color: #60a5fa;
+    }
+
+    #input-nome-funil {
+      font-size: 1em;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+      max-width: 300px;
+    }
+
     .editor-container {
       display: flex;
       height: calc(100vh - 60px);
@@ -64,6 +96,7 @@
       text-align: center;
       cursor: grab;
       font-weight: bold;
+      user-select: none;
     }
 
     .editor-canvas {
@@ -73,7 +106,7 @@
       border: 2px dashed #475569;
       border-radius: 10px;
       margin: 15px;
-      overflow: hidden; /* aqui está a alteração */
+      overflow: hidden;
     }
 
     .editor-bloco {
@@ -84,6 +117,7 @@
       border-radius: 10px;
       width: 280px;
       cursor: move;
+      user-select: none;
     }
 
     .dropdown {
@@ -133,10 +167,11 @@
 <body>
   <div class="editor-topbar">
     <button onclick="history.back()">⬅ Voltar</button>
-    <span
-      >🧠 Editor de Funil:
-      <strong id="nome-do-funil">Funil sem título</strong></span
-    >
+    <span id="nome-funil-container">
+      🧠 Editor de Funil:
+      <strong id="nome-do-funil">Funil sem título</strong>
+      <i id="editar-nome-funil" class="fa fa-pencil" title="Editar nome do funil"></i>
+    </span>
     <button onclick="salvarEditor()">💾 Salvar</button>
   </div>
 
@@ -204,42 +239,45 @@
     document.addEventListener('DOMContentLoaded', function () {
       jsPlumbInstance = jsPlumb.getInstance();
 
-      document.querySelectorAll('.bloco').forEach((bloco) => {
-        bloco.addEventListener('dragstart', (e) => {
-          e.dataTransfer.setData('tipo', bloco.getAttribute('data-tipo'));
-        });
-      });
+      // Função para salvar nome no localStorage
+      function salvarNome(nome) {
+        localStorage.setItem('nomeDoFunil', nome);
+      }
 
-      canvas.addEventListener('dragover', (e) => e.preventDefault());
+      // Carregar nome salvo
+      const nomeSalvo = localStorage.getItem('nomeDoFunil');
+      const nomeDoFunilEl = document.getElementById('nome-do-funil');
+      if (nomeSalvo) {
+        nomeDoFunilEl.textContent = nomeSalvo;
+      }
 
-      canvas.addEventListener('drop', (e) => {
-        e.preventDefault();
-        const tipo = e.dataTransfer.getData('tipo');
-        const novo = document.createElement('div');
-        novo.className = 'editor-bloco';
-        novo.style.top = `${e.offsetY}px`;
-        novo.style.left = `${e.offsetX}px`;
-        novo.id = 'bloco-' + blocoCount++;
-        novo.innerHTML = `<strong>${tipo.toUpperCase()}</strong><br><small>ID: ${novo.id}</small>`;
+      // Lógica para edição do nome do funil
+      const editarIcon = document.getElementById('editar-nome-funil');
+      const nomeContainer = document.getElementById('nome-funil-container');
 
-        const conectorEntrada = document.createElement('div');
-        conectorEntrada.className = 'conector-topo';
-        novo.appendChild(conectorEntrada);
+      editarIcon.addEventListener('click', () => {
+        // Criar input
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'input-nome-funil';
+        input.value = nomeDoFunilEl.textContent;
+        nomeContainer.replaceChild(input, nomeDoFunilEl);
+        input.focus();
 
-        const conectorSaida = document.createElement('div');
-        conectorSaida.className = 'conector-lateral';
-        novo.appendChild(conectorSaida);
+        // Função para salvar e voltar ao texto
+        function salvarEFechar() {
+          const novoNome = input.value.trim() || 'Funil sem título';
+          salvarNome(novoNome);
 
-        canvas.appendChild(novo);
-        jsPlumbInstance.draggable(novo);
-        jsPlumbInstance.makeSource(conectorSaida, { anchor: 'Right', connector: ['Flowchart'] });
-        jsPlumbInstance.makeTarget(conectorEntrada, { anchor: 'Top' });
-      });
-    });
+          // Criar o strong de volta
+          const strong = document.createElement('strong');
+          strong.id = 'nome-do-funil';
+          strong.textContent = novoNome;
 
-    function salvarEditor() {
-      alert('(Futuro) Salvar fluxograma visual do funil.');
-    }
-  </script>
-</body>
-</html>
+          nomeContainer.replaceChild(strong, input);
+        }
+
+        // Salvar ao sair do input ou pressionar Enter
+        input.addEventListener('blur', salvarEFechar);
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
