@@ -5,6 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MickyChat - Painel</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Pequenos ajustes para botões de edição/exclusão */
+    .funil-card {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      width: 260px;
+      height: 120px;
+      padding: 15px;
+      color: white;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease;
+    }
+
+    .funil-nome {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 8px;
+      outline: none;
+      user-select: text;
+    }
+
+    .funil-acoes {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn-editar,
+    .btn-excluir {
+      background: #30cfd0;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 10px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-editar:hover,
+    .btn-excluir:hover {
+      background-color: #26bfbf;
+    }
+
+    .btn-excluir {
+      background: #e55353;
+      color: white;
+    }
+
+    .btn-excluir:hover {
+      background-color: #bf4747;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -126,6 +182,78 @@
       </section>
     </main>
   </div>
-  <script src="app.js"></script>
+
+  <script>
+    const listaFunis = document.getElementById('lista-funis');
+    const contadorFunis = document.getElementById('contador-funis');
+
+    let funis = [];
+
+    function criarNovoFunil() {
+      const nomeInicial = 'Funil sem título';
+      const id = Date.now();
+      funis.push({ id, nome: nomeInicial });
+      atualizarListaFunis();
+    }
+
+    function atualizarListaFunis() {
+      listaFunis.innerHTML = '';
+      funis.forEach(funil => {
+        const card = document.createElement('div');
+        card.className = 'funil-card';
+        card.dataset.id = funil.id;
+
+        card.innerHTML = `
+          <div class="funil-nome" contenteditable="false" spellcheck="false">${funil.nome}</div>
+          <div class="funil-acoes">
+            <button class="btn-editar" title="Editar nome">✏️</button>
+            <button class="btn-excluir" title="Excluir funil">🗑️</button>
+          </div>
+        `;
+
+        listaFunis.appendChild(card);
+
+        const btnEditar = card.querySelector('.btn-editar');
+        const btnExcluir = card.querySelector('.btn-excluir');
+        const nomeDiv = card.querySelector('.funil-nome');
+
+        btnEditar.onclick = () => {
+          if (nomeDiv.isContentEditable) {
+            nomeDiv.contentEditable = 'false';
+            btnEditar.textContent = '✏️';
+            funil.nome = nomeDiv.textContent.trim() || 'Funil sem título';
+            atualizarContador();
+          } else {
+            nomeDiv.contentEditable = 'true';
+            nomeDiv.focus();
+            btnEditar.textContent = '💾';
+          }
+        };
+
+        btnExcluir.onclick = () => {
+          if (confirm('Deseja realmente excluir este funil?')) {
+            funis = funis.filter(f => f.id !== funil.id);
+            atualizarListaFunis();
+            atualizarContador();
+          }
+        };
+
+        nomeDiv.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            btnEditar.click();
+          }
+        });
+      });
+      atualizarContador();
+    }
+
+    function atualizarContador() {
+      contadorFunis.textContent = funis.length;
+    }
+
+    // Inicializa com lista vazia
+    atualizarListaFunis();
+  </script>
 </body>
 </html>
