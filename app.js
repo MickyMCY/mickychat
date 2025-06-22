@@ -98,20 +98,32 @@ function menuFunil(index) {
   alert("Menu de opções para o funil #" + (index + 1) + " (excluir, duplicar, etc.).");
 }
 
-// Atualiza a lista de funis salvos
+// Atualiza a lista de funis salvos com edição e exclusão
 function carregarFunis() {
   const lista = document.getElementById("lista-funis");
   lista.innerHTML = "";
-  const funis = JSON.parse(localStorage.getItem("funis")) || [];
+  let funis = JSON.parse(localStorage.getItem("funis")) || [];
   document.getElementById("contador-funis").textContent = funis.length;
 
   funis.forEach((funil, index) => {
     const card = document.createElement("div");
     card.className = "funil-card";
 
+    // Nome editável
     const nome = document.createElement("div");
     nome.className = "funil-nome";
     nome.textContent = funil.nome;
+    nome.contentEditable = "true";
+    nome.spellcheck = false;
+
+    // Salvar alteração ao sair do foco
+    nome.addEventListener("blur", () => {
+      let texto = nome.textContent.trim();
+      if (texto === "") texto = "Funil sem título";
+      funis[index].nome = texto;
+      localStorage.setItem("funis", JSON.stringify(funis));
+      carregarFunis();  // Atualiza visual
+    });
 
     const status = document.createElement("div");
     status.className = "funil-status";
@@ -123,7 +135,7 @@ function carregarFunis() {
     knob.className = "switch-knob";
     interruptor.appendChild(knob);
     interruptor.onclick = () => {
-      funil.ativo = !funil.ativo;
+      funis[index].ativo = !funis[index].ativo;
       localStorage.setItem("funis", JSON.stringify(funis));
       carregarFunis();
     };
@@ -136,12 +148,27 @@ function carregarFunis() {
     btnEditar.innerHTML = "➡️";
     btnEditar.onclick = () => editarFunil(index);
 
+    // Botão excluir funcional
+    const btnExcluir = document.createElement("button");
+    btnExcluir.className = "btn-editar";
+    btnExcluir.style.backgroundColor = "#e55353";
+    btnExcluir.title = "Excluir Funil";
+    btnExcluir.innerHTML = "🗑️";
+    btnExcluir.onclick = () => {
+      if (confirm(`Excluir o funil "${funis[index].nome}"?`)) {
+        funis.splice(index, 1);
+        localStorage.setItem("funis", JSON.stringify(funis));
+        carregarFunis();
+      }
+    };
+
     const btnMenu = document.createElement("button");
     btnMenu.className = "btn-menu";
     btnMenu.innerText = "⋮";
     btnMenu.onclick = () => menuFunil(index);
 
     acoes.appendChild(btnEditar);
+    acoes.appendChild(btnExcluir);
     acoes.appendChild(btnMenu);
 
     card.appendChild(nome);
