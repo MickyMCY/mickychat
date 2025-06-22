@@ -17,74 +17,51 @@ body {
   flex-direction: row;
 }
 
-/* -- INÍCIO MODIFICAÇÃO DA SIDEBAR -- */
+/* MENU LATERAL - Sempre fixo à esquerda */
 .sidebar {
+  width: 250px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  padding: 20px;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 50px; /* barra fina */
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  padding: 10px 5px;
-  overflow: hidden;
-  transition: width 0.3s ease, padding 0.3s ease;
+  overflow-y: auto;
   z-index: 10;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.sidebar nav ul {
+  list-style: none;
+}
+
+.sidebar nav ul li {
+  padding: 12px;
+  margin-bottom: 8px;
+  background-color: #334155;
+  border-radius: 6px;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
+  font-weight: bold;
 }
 
-/* Ícone “alça” visível sempre */
-.sidebar::before {
-  content: '☰';
-  color: white;
-  font-size: 18px;
-  position: absolute;
-  top: 15px;
-  right: 10px;
-  pointer-events: none;
+.sidebar nav ul li.ativo,
+.sidebar nav ul li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Ao passar o mouse ou foco (tab/touch), expande */
-.sidebar:hover,
-.sidebar:focus-within {
-  width: 250px;
-  padding: 20px;
-  overflow-y: auto; /* permite scroll se conteúdo maior */
+.whatsapp-help a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  margin-top: 20px;
 }
-
-/* Conteúdo começa invisível e não interativo */
-.sidebar > * {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-/* Conteúdo visível e interativo ao expandir */
-.sidebar:hover > *,
-.sidebar:focus-within > * {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Scrollbar sutil na expansão */
-.sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background-color: #004466;
-  border-radius: 3px;
-}
-
-/* Para evitar seleções erradas */
-.sidebar * {
-  user-select: none;
-}
-
-/* -- FIM MODIFICAÇÃO DA SIDEBAR -- */
 
 /* CONTEÚDO PRINCIPAL */
 main.conteudo {
@@ -458,12 +435,12 @@ section#sair button:hover {
     flex-direction: row;
   }
   .sidebar {
-    width: 50px;
-    padding: 10px 5px;
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto;
   }
-  .sidebar:hover,
-  .sidebar:focus-within {
-    width: 200px;
-    padding: 15px;
+  main.conteudo {
+    margin-left: 250px;
+    padding: 20px;
   }
 }
