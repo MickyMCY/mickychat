@@ -1,4 +1,4 @@
-// Navegação do menu — SEM ALTERAR, garante clique no menu lateral
+// Navegação do menu
 document.querySelectorAll('.sidebar li').forEach(item => {
   item.addEventListener('click', () => {
     document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('ativo'));
@@ -75,7 +75,7 @@ function baixarExtensao() {
   window.open('extensao.zip', '_blank');
 }
 
-// Criar novo funil e redirecionar
+// 🔄 ALTERADO: Função para criar um novo funil e redirecionar
 function criarNovoFunil() {
   const nome = prompt("Digite o nome do novo funil:") || "Funil sem título";
   const funil = { nome, ativo: true };
@@ -84,44 +84,34 @@ function criarNovoFunil() {
   localStorage.setItem("funis", JSON.stringify(funis));
 
   const novoIndex = funis.length - 1;
+  // Redireciona para o editor passando o ID
   window.location.href = `editor-funil.html?id=${novoIndex}`;
 }
 
-// Abrir editor do funil
+// 🔄 ALTERADO: Abre diretamente a tela do editor ao clicar em editar
 function editarFunil(index) {
   window.location.href = `editor-funil.html?id=${index}`;
 }
 
-// Menu do funil (ainda só alerta)
+// Menu do funil (ex: duplicar, excluir – ainda por implementar)
 function menuFunil(index) {
   alert("Menu de opções para o funil #" + (index + 1) + " (excluir, duplicar, etc.).");
 }
 
-// Atualiza a lista de funis com edição e exclusão
+// Atualiza a lista de funis salvos
 function carregarFunis() {
   const lista = document.getElementById("lista-funis");
   lista.innerHTML = "";
-  let funis = JSON.parse(localStorage.getItem("funis")) || [];
+  const funis = JSON.parse(localStorage.getItem("funis")) || [];
   document.getElementById("contador-funis").textContent = funis.length;
 
   funis.forEach((funil, index) => {
     const card = document.createElement("div");
     card.className = "funil-card";
 
-    // Nome editável inline
     const nome = document.createElement("div");
     nome.className = "funil-nome";
     nome.textContent = funil.nome;
-    nome.contentEditable = "true";
-    nome.spellcheck = false;
-
-    nome.addEventListener("blur", () => {
-      let texto = nome.textContent.trim();
-      if (texto === "") texto = "Funil sem título";
-      funis[index].nome = texto;
-      localStorage.setItem("funis", JSON.stringify(funis));
-      carregarFunis();
-    });
 
     const status = document.createElement("div");
     status.className = "funil-status";
@@ -133,7 +123,7 @@ function carregarFunis() {
     knob.className = "switch-knob";
     interruptor.appendChild(knob);
     interruptor.onclick = () => {
-      funis[index].ativo = !funis[index].ativo;
+      funil.ativo = !funil.ativo;
       localStorage.setItem("funis", JSON.stringify(funis));
       carregarFunis();
     };
@@ -146,26 +136,12 @@ function carregarFunis() {
     btnEditar.innerHTML = "➡️";
     btnEditar.onclick = () => editarFunil(index);
 
-    const btnExcluir = document.createElement("button");
-    btnExcluir.className = "btn-editar";
-    btnExcluir.style.backgroundColor = "#e55353";
-    btnExcluir.title = "Excluir Funil";
-    btnExcluir.innerHTML = "🗑️";
-    btnExcluir.onclick = () => {
-      if (confirm(`Excluir o funil "${funis[index].nome}"?`)) {
-        funis.splice(index, 1);
-        localStorage.setItem("funis", JSON.stringify(funis));
-        carregarFunis();
-      }
-    };
-
     const btnMenu = document.createElement("button");
     btnMenu.className = "btn-menu";
     btnMenu.innerText = "⋮";
     btnMenu.onclick = () => menuFunil(index);
 
     acoes.appendChild(btnEditar);
-    acoes.appendChild(btnExcluir);
     acoes.appendChild(btnMenu);
 
     card.appendChild(nome);
@@ -177,7 +153,7 @@ function carregarFunis() {
   });
 }
 
-// Carregar funis após DOM estar pronto
+// Carrega os funis ao iniciar
 document.addEventListener("DOMContentLoaded", () => {
   carregarFunis();
 });
