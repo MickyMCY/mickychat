@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MickyChat - Chatbot para WhatsApp Business | Automatize Vendas 24h</title>
+    <meta name="description" content="Multiplique suas vendas com o MickyChat - chatbot para WhatsApp que vende 24h por dia. Teste grátis por 3 dias. Planos a partir de 498 MZN.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="MickyChat - Chatbot WhatsApp Business">
+    <meta property="og:description" content="Automatize suas vendas no WhatsApp com o melhor chatbot do mercado">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mickychat.replit.app">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <span class="logo-text">MickyChat</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <a href="#inicio" class="nav-link">Início</a>
+                    <a href="#como-funciona" class="nav-link">Como Funciona</a>
+                    <a href="#precos" class="nav-link">Preços</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                </nav>
+
+                <div class="header-buttons">
+                    <button class="btn btn-ghost" onclick="showLoginModal()">Acessar</button>
+                    <button class="btn btn-primary" onclick="showLoginModal()">Adquirir</button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu">
+            <div class="mobile-menu-content">
+                <a href="#inicio" class="mobile-nav-link" onclick="closeMobileMenu()">Início</a>
+                <a href="#como-funciona" class="mobile-nav-link" onclick="closeMobileMenu()">Como Funciona</a>
+                <a href="#precos" class="mobile-nav-link" onclick="closeMobileMenu()">Preços</a>
+                <a href="#contato" class="mobile-nav-link" onclick="closeMobileMenu()">Contato</a>
+                <button class="btn btn-ghost mobile-btn" onclick="showLoginModal()">Acessar</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Multiplique as suas vendas de forma 
+                    <span class="accent">automática</span> com o chatbot que vende 24h por dia.
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Transforme o seu negócio ainda hoje com o chatbot para WhatsApp capaz de conversar com um número ilimitado de clientes ao mesmo tempo.
+                </p>
+                
+                <button class="btn btn-hero" onclick="showLoginModal()">
+                    QUERO ADQUIRIR O MELHOR CHATBOT DO MERCADO
+                </button>
+                
+                <div class="hero-trial">
+                    <button class="btn btn-trial" onclick="showLoginModal()">
+                        Teste Grátis 3 Dias
+                    </button>
+                </div>
+            </div>
+
+            <!-- Demo Mockup -->
+            <div class="demo-mockup">
+                <div class="mockup-container">
+                    <div class="chat-header">
+                        <div class="chat-avatar">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="chat-info">
+                            <div class="chat-name">MickyChat</div>
+                            <div class="chat-status">Online</div>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message bot-message">
+                            Olá! Bem-vindo ao MickyChat. Como posso ajudar hoje?
+                        </div>
+                        <div class="message user-message">
+                            Quero saber sobre os produtos
+                        </div>
+                        <div class="message bot-message">
+                            Perfeito! Temos várias opções disponíveis...
+                        </div>
+                    </div>
+                    <div class="mockup-caption">
+                        Atenda mais clientes automaticamente
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona -->
+    <section id="como-funciona" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Como Funciona</h2>
+                <p>Configure seu chatbot em poucos passos e comece a vender automaticamente</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>1. Conecte WhatsApp</h3>
+                    <p>Escaneie o QR Code e conecte sua conta do WhatsApp Business em segundos</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>2. Crie Funis</h3>
+                    <p>Use nosso editor visual para criar funis de vendas personalizados</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>3. Venda 24h</h3>
+                    <p>Seu chatbot trabalha sem parar, convertendo leads em vendas automaticamente</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funcionalidades -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Funcionalidades Poderosas</h2>
+                <p>Tudo que você precisa para automatizar vendas no WhatsApp</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-edit"></i>
+                    <h3>Editor Visual de Funis</h3>
+                    <p>Crie funis complexos com interface drag-and-drop intuitiva</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Gestão de Contatos</h3>
+                    <p>Organize e gerencie todos os seus leads em um só lugar</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-download"></i>
+                    <h3>Importar/Exportar</h3>
+                    <p>Importe e exporte funis em formato JSON facilmente</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Relatórios Detalhados</h3>
+                    <p>Acompanhe performance e conversões em tempo real</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Disponível 24/7</h3>
+                    <p>Seu chatbot trabalha sem parar, mesmo quando você dorme</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>100% Mobile</h3>
+                    <p>Interface otimizada para funcionar perfeitamente no celular</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="dashboard-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2>Interface Profissional</h2>
+                <p>Dashboard completo para gerenciar todos os seus funis e conversas</p>
+            </div>
+
+            <div class="dashboard-mockup">
+                <div class="dashboard-sidebar">
+                    <div class="sidebar-item active">
+                        <i class="fas fa-comments"></i>
+                        <span>Meus Funis</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <i class="fas fa-qrcode"></i>
+                        <span>Conexão</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <i class="fas fa-users"></i>
+                        <span>Contatos</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Relatórios</span>
+                    </div>
+                </div>
+                <div class="dashboard-main">
+                    <div class="dashboard-header">
+                        <h3>Meus Funis</h3>
+                        <button class="btn btn-small">+ Novo Funil</button>
+                    </div>
+                    <div class="funnel-cards">
+                        <div class="funnel-card">
+                            <div class="funnel-status active"></div>
+                            <h4>Funil de Vendas Principais</h4>
+                            <p>Leads: <strong>247</strong> | Conversões: <strong>23</strong></p>
+                        </div>
+                        <div class="funnel-card">
+                            <div class="funnel-status"></div>
+                            <h4>Atendimento ao Cliente</h4>
+                            <p>Leads: <strong>89</strong> | Conversões: <strong>12</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preços -->
+    <section id="precos" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Planos e Preços</h2>
+                <p>Escolha o plano ideal para o seu negócio</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Teste Grátis -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Teste Grátis</h3>
+                        <div class="price">3 Dias</div>
+                        <p>Experimente todas as funcionalidades gratuitamente</p>
+                    </div>
+                    <button class="btn btn-trial" onclick="showLoginModal()">
+                        Começar Teste
+                    </button>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> 1 Funil ativo</li>
+                        <li><i class="fas fa-check"></i> 100 contatos</li>
+                        <li><i class="fas fa-check"></i> Suporte básico</li>
+                    </ul>
+                </div>
+
+                <!-- Pro -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Mais Popular</div>
+                    <div class="pricing-header">
+                        <h3>Pro</h3>
+                        <div class="price">498 MZN</div>
+                        <div class="period">por 2 semanas</div>
+                        <p>Ideal para pequenos e médios negócios</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="showLoginModal()">
+                        Escolher Pro
+                    </button>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> 5 Funis ativos</li>
+                        <li><i class="fas fa-check"></i> 1.000 contatos</li>
+                        <li><i class="fas fa-check"></i> Relatórios avançados</li>
+                        <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                        <li><i class="fas fa-check"></i> Integração com ferramentas</li>
+                    </ul>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">998 MZN</div>
+                        <div class="period">por mês</div>
+                        <p>Para empresas que precisam de mais poder</p>
+                    </div>
+                    <button class="btn btn-outline" onclick="showLoginModal()">
+                        Escolher Enterprise
+                    </button>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Funis ilimitados</li>
+                        <li><i class="fas fa-check"></i> Contatos ilimitados</li>
+                        <li><i class="fas fa-check"></i> Analytics avançados</li>
+                        <li><i class="fas fa-check"></i> API personalizada</li>
+                        <li><i class="fas fa-check"></i> Suporte 24/7</li>
+                        <li><i class="fas fa-check"></i> Múltiplos usuários</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Perguntas Frequentes</h2>
+                <p>Tire suas dúvidas sobre o MickyChat</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Como funciona a conexão com WhatsApp?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A conexão é feita através de QR Code, similar ao WhatsApp Web. Você escaneia o código com seu celular e sua conta fica conectada ao MickyChat de forma segura.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Posso usar com WhatsApp Business?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! O MickyChat funciona perfeitamente com WhatsApp Business e WhatsApp pessoal. Recomendamos o uso do Business para ter acesso a recursos profissionais.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Os funis funcionam em tempo real?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! Assim que você ativar um funil, ele começará a responder automaticamente todas as mensagens recebidas no seu WhatsApp, 24 horas por dia.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Posso cancelar a qualquer momento?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Claro! Não há fidelidade. Você pode cancelar sua assinatura a qualquer momento através do painel de controle ou entrando em contato conosco.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <span class="logo-text">MickyChat</span>
+                    </div>
+                    <p>Automatize suas vendas no WhatsApp com o melhor chatbot do mercado moçambicano.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Produto</h4>
+                    <ul>
+                        <li><a href="#como-funciona">Como Funciona</a></li>
+                        <li><a href="#precos">Preços</a></li>
+                        <li><a href="#" onclick="showLoginModal()">Teste Grátis</a></li>
+                        <li><a href="#" onclick="showLoginModal()">Entrar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#" onclick="showContactModal()">Contato</a></li>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Status do Sistema</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Parceiros</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="payment-methods">
+                <h4>Métodos de Pagamento Aceitos</h4>
+                <div class="payment-icons">
+                    <div class="payment-item">
+                        <i class="fab fa-cc-visa"></i>
+                        <span>Visa</span>
+                    </div>
+                    <div class="payment-item">
+                        <i class="fab fa-paypal"></i>
+                        <span>PayPal</span>
+                    </div>
+                    <div class="payment-item mpesa">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>M-Pesa</span>
+                    </div>
+                    <div class="payment-item emola">
+                        <i class="fas fa-wallet"></i>
+                        <span>e-Mola</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 MickyChat. Todos os direitos reservados.</p>
+                    <div class="footer-links">
+                        <a href="#">Política de Privacidade</a>
+                        <a href="#">Termos de Uso</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Entrar no MickyChat</h3>
+                <button class="modal-close" onclick="closeModal('loginModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" placeholder="Sua senha" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        Entrar
+                    </button>
+                </form>
+                <div class="modal-footer">
+                    <p>Não tem conta? <a href="#" onclick="showRegisterModal()">Criar conta grátis</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Criar Conta Grátis</h3>
+                <button class="modal-close" onclick="closeModal('registerModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label>Nome Completo</label>
+                        <input type="text" placeholder="João Silva" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="tel" placeholder="+258 84 xxx xxxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" placeholder="Mínimo 6 caracteres" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        Começar Teste Grátis
+                    </button>
+                </form>
+                <div class="modal-footer">
+                    <p>Já tem conta? <a href="#" onclick="showLoginModal()">Fazer login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Entre em Contato</h3>
+                <button class="modal-close" onclick="closeModal('contactModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Assunto</label>
+                        <select required>
+                            <option value="">Selecione um assunto</option>
+                            <option value="duvidas">Dúvidas sobre o produto</option>
+                            <option value="suporte">Suporte técnico</option>
+                            <option value="vendas">Consultoria de vendas</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem</label>
+                        <textarea placeholder="Como podemos ajudar?" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        Enviar Mensagem
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
